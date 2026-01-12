@@ -6,6 +6,7 @@ import { getIceStatusForLocation } from '@/lib/weather';
 import { playSound } from '@/lib/sounds';
 import { awardPoints } from '@/lib/scoring';
 import { uploadRinkPhoto } from '@/lib/photos';
+import { Star } from 'lucide-react';
 import CrowdMeter from './CrowdMeter';
 
 interface AddReportModalProps {
@@ -188,22 +189,14 @@ export default function AddReportModal({
                                     type="button"
                                     onClick={() => setFormData({ ...formData, iceStatus: status })}
                                     className={`
-                    px-2 py-3 border-2 rounded-lg text-[10px] font-bold transition-all relative shadow-sm
+                    px-2 py-3 border rounded-lg text-[10px] font-bold transition-all relative shadow-sm uppercase tracking-wide
                     ${formData.iceStatus === status
-                                            ? `border-status-${status} bg-status-${status}/20 scale-105`
-                                            : 'border-ice-white/30 bg-puck-black/50 hover:border-vegas-gold'
+                                            ? `bg-white/25 border-white/30 text-white shadow-[0_0_15px_rgba(255,255,255,0.1)] backdrop-blur-sm scale-105`
+                                            : 'border-ice-white/30 bg-puck-black/50 hover:border-vegas-gold text-ice-white/60'
                                         }
                   `}
                                 >
-                                    {formData.iceStatus === status && (
-                                        <div
-                                            className="absolute -top-2 -right-2 rounded-full w-5 h-5 flex items-center justify-center font-bold z-20 shadow-sm border-2 border-ice-white"
-                                            style={{ backgroundColor: '#00ff00', color: '#000000' }}
-                                        >
-                                            ✓
-                                        </div>
-                                    )}
-                                    {status.toUpperCase()}
+                                    {status}
                                 </button>
                             ))}
                         </div>
@@ -216,16 +209,20 @@ export default function AddReportModal({
 
                     {/* Rating */}
                     <div>
-                        <label className="block text-xs font-bold mb-2 text-ice-white/80 tracking-wide">RATE THIS RINK (OPTIONAL)</label>
+                        <label className="block text-xs font-bold mb-2 text-ice-white/80 tracking-wider">RATE THIS RINK (OPTIONAL)</label>
                         <div className="flex gap-2 justify-center bg-puck-black/30 p-2 rounded-lg border-2 border-ice-white/10">
                             {[1, 2, 3, 4, 5].map((star) => (
                                 <button
                                     key={star}
                                     type="button"
                                     onClick={() => setFormData({ ...formData, rating: star })}
-                                    className="text-3xl transition-all hover:scale-110"
+                                    className="transition-transform hover:scale-110 focus:outline-none"
                                 >
-                                    {formData.rating >= star ? '⭐' : '☆'}
+                                    <Star
+                                        className={`w-8 h-8 ${formData.rating >= star ? 'text-vegas-gold' : 'text-ice-white/20'}`}
+                                        fill={formData.rating >= star ? '#B4975A' : 'none'}
+                                        strokeWidth={1.5}
+                                    />
                                 </button>
                             ))}
                         </div>
@@ -280,7 +277,7 @@ export default function AddReportModal({
                         {loading ? 'SUBMITTING...' : 'UPDATE CONDITIONS'}
                     </button>
                 </form>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }

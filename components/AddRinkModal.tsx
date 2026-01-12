@@ -295,7 +295,7 @@ export default function AddRinkModal({
                             <button
                                 type="button"
                                 onClick={() => setFormData({ ...formData, rinkType: 'outdoor' })}
-                                className={`flex-1 px-2 py-4 text-xs font-bold rounded-xl transition-all relative uppercase tracking-wider flex flex-col items-center gap-2 ${formData.rinkType === 'outdoor' ? 'bg-vegas-gold/10 text-vegas-gold shadow-lg shadow-vegas-gold/20 scale-105 ring-2 ring-vegas-gold' : 'bg-ice-white/5 border-2 border-ice-white/10 text-ice-white/60 hover:bg-ice-white/10 hover:border-ice-white/30 hover:text-ice-white'}`}
+                                className={`flex-1 px-2 py-4 text-xs font-bold rounded-xl transition-all relative uppercase tracking-wider flex flex-col items-center gap-2 ${formData.rinkType === 'outdoor' ? 'bg-white/25 border border-white/30 text-white shadow-[0_0_15px_rgba(255,255,255,0.1)] backdrop-blur-sm scale-105' : 'bg-ice-white/5 border border-ice-white/10 text-ice-white/60 hover:bg-ice-white/10 hover:border-ice-white/30 hover:text-ice-white'}`}
                             >
                                 <Snowflake className="w-5 h-5" />
                                 OUTDOOR
@@ -303,7 +303,7 @@ export default function AddRinkModal({
                             <button
                                 type="button"
                                 onClick={() => setFormData({ ...formData, rinkType: 'indoor' })}
-                                className={`flex-1 px-2 py-4 text-xs font-bold rounded-xl transition-all relative uppercase tracking-wider flex flex-col items-center gap-2 ${formData.rinkType === 'indoor' ? 'bg-vegas-gold/10 text-vegas-gold shadow-lg shadow-vegas-gold/20 scale-105 ring-2 ring-vegas-gold' : 'bg-ice-white/5 border-2 border-ice-white/10 text-ice-white/60 hover:bg-ice-white/10 hover:border-ice-white/30 hover:text-ice-white'}`}
+                                className={`flex-1 px-2 py-4 text-xs font-bold rounded-xl transition-all relative uppercase tracking-wider flex flex-col items-center gap-2 ${formData.rinkType === 'indoor' ? 'bg-white/25 border border-white/30 text-white shadow-[0_0_15px_rgba(255,255,255,0.1)] backdrop-blur-sm scale-105' : 'bg-ice-white/5 border border-ice-white/10 text-ice-white/60 hover:bg-ice-white/10 hover:border-ice-white/30 hover:text-ice-white'}`}
                             >
                                 <Warehouse className="w-5 h-5" />
                                 INDOOR
@@ -311,7 +311,7 @@ export default function AddRinkModal({
                             <button
                                 type="button"
                                 onClick={() => setFormData({ ...formData, rinkType: 'pond' })}
-                                className={`flex-1 px-2 py-4 text-xs font-bold rounded-xl transition-all relative uppercase tracking-wider flex flex-col items-center gap-2 ${formData.rinkType === 'pond' ? 'bg-vegas-gold/10 text-vegas-gold shadow-lg shadow-vegas-gold/20 scale-105 ring-2 ring-vegas-gold' : 'bg-ice-white/5 border-2 border-ice-white/10 text-ice-white/60 hover:bg-ice-white/10 hover:border-ice-white/30 hover:text-ice-white'}`}
+                                className={`flex-1 px-2 py-4 text-xs font-bold rounded-xl transition-all relative uppercase tracking-wider flex flex-col items-center gap-2 ${formData.rinkType === 'pond' ? 'bg-white/25 border border-white/30 text-white shadow-[0_0_15px_rgba(255,255,255,0.1)] backdrop-blur-sm scale-105' : 'bg-ice-white/5 border border-ice-white/10 text-ice-white/60 hover:bg-ice-white/10 hover:border-ice-white/30 hover:text-ice-white'}`}
                             >
                                 <Trees className="w-5 h-5" />
                                 POND
@@ -347,8 +347,8 @@ export default function AddRinkModal({
                                     className={`
                     px-2 py-3 rounded-xl text-[10px] md:text-xs font-bold transition-all uppercase tracking-wide
                     ${formData.iceStatus === status
-                                            ? `bg-status-${status} text-puck-black shadow-lg scale-105 ring-2 ring-white/50`
-                                            : 'bg-ice-white/5 border-2 border-ice-white/10 text-ice-white/60 hover:bg-ice-white/10 hover:border-ice-white/30 hover:text-ice-white'
+                                            ? `bg-white/25 border border-white/30 text-white shadow-[0_0_15px_rgba(255,255,255,0.1)] backdrop-blur-sm scale-105`
+                                            : 'bg-ice-white/5 border border-ice-white/10 text-ice-white/60 hover:bg-ice-white/10 hover:border-ice-white/30 hover:text-ice-white'
                                         }
                   `}
                                 >

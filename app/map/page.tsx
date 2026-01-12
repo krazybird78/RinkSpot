@@ -132,20 +132,23 @@ export default function Home() {
 
             {/* Map Pick Overlay */}
             {isPickingLocation && (
-                <div className="fixed top-24 left-1/2 transform -translate-x-1/2 bg-puck-black/90 backdrop-blur-xl border border-vegas-gold/30 p-4 z-50 rounded-2xl shadow-2xl flex flex-col items-center gap-3">
-                    <div className="flex items-center gap-2 text-vegas-gold animate-pulse">
-                        <MapPin className="w-5 h-5" />
-                        <p className="text-xs font-black tracking-widest uppercase">CLICK MAP TO SET LOCATION</p>
+                <div className="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 flex flex-col items-center gap-3 animate-in fade-in slide-in-from-top-4 duration-300">
+                    <div className="bg-puck-black/90 backdrop-blur-xl border border-vegas-gold/50 px-6 py-3 rounded-full shadow-[0_0_20px_rgba(180,151,90,0.3)] flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-vegas-gold animate-pulse shadow-[0_0_8px_rgba(180,151,90,0.8)]" />
+                        <p className="text-xs font-black tracking-widest uppercase text-vegas-gold font-sans">
+                            TAP MAP TO SET LOCATION
+                        </p>
                     </div>
                     <button
                         onClick={() => {
                             setIsPickingLocation(false);
                             setShowAddModal(true);
                         }}
-                        className="text-[10px] text-ice-white/60 hover:text-ice-white hover:underline transition-colors font-bold tracking-wide"
+                        className="bg-puck-black/50 hover:bg-puck-black/80 backdrop-blur-md px-4 py-1.5 rounded-full border border-ice-white/10 text-[10px] text-ice-white/60 hover:text-ice-white transition-all font-bold tracking-wider hover:scale-105 active:scale-95 font-sans"
                     >
-                        CANCEL SELECTION
+                        CANCEL
                     </button>
+                    {/* Crosshair cursor instruction/indicator could go here if needed, but the cursor change handles it on desktop */}
                 </div>
             )}
 
