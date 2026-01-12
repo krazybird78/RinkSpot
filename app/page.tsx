@@ -87,7 +87,7 @@ export default function LandingPage() {
 
           <h2 className="text-5xl md:text-7xl lg:text-8xl font-black italic uppercase tracking-tighter mb-8 leading-[0.9] animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
             Find Your <br />
-            <span className="bg-clip-text text-transparent bg-linear-to-r from-ice-white via-vegas-gold to-ice-white bg-300% animate-gradient">Home Ice</span>
+            <span className="text-vegas-gold">Ruhnk</span>
           </h2>
 
           <p className="text-lg md:text-xl text-ice-white/60 max-w-2xl mx-auto mb-10 leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
