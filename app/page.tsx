@@ -180,7 +180,7 @@ export default function LandingPage() {
           <div className="flex gap-8 text-xs font-bold uppercase tracking-widest text-ice-white/40">
             <Link href="/terms" className="hover:text-vegas-gold transition-colors">Terms</Link>
             <Link href="/privacy" className="hover:text-vegas-gold transition-colors">Privacy</Link>
-            <Link href="mailto:hello@rinkspot.com" className="hover:text-vegas-gold transition-colors">Contact</Link>
+            <Link href="mailto:doyon.sebastien@hotmail.com" className="hover:text-vegas-gold transition-colors">Contact</Link>
           </div>
           <div className="text-[10px] font-bold text-ice-white/20 uppercase tracking-widest">
             © {new Date().getFullYear()} RinkSpot. All rights reserved.
