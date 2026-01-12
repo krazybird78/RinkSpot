@@ -98,10 +98,10 @@ export default function Home() {
                                 playSound('menu-beep');
                             }}
                             className="px-4 py-2 rounded-full border border-ice-white/20 bg-vegas-gold/20 hover:bg-vegas-gold/40 hover:border-vegas-gold transition-all backdrop-blur-sm shadow-md hover:shadow-lg flex items-center justify-center gap-2 group"
-                            title="Locker Room"
+                            title="User Profile"
                         >
                             <Shirt className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                            <span className="hidden md:inline text-xs text-vegas-gold font-bold tracking-wider font-sans group-hover:text-ice-white">LOCKER ROOM</span>
+                            <span className="hidden md:inline text-xs text-vegas-gold font-bold tracking-wider font-sans group-hover:text-ice-white">USER PROFILE</span>
                         </button>
                     </div>
                 </div>

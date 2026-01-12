@@ -91,7 +91,7 @@ export default function LandingPage() {
           </h2>
 
           <p className="text-lg md:text-xl text-ice-white/60 max-w-2xl mx-auto mb-10 leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
-            The world's largest crowdsourced directory of outdoor rinks, ponds, and ODRs. Join the community, track your stats, and always know where the game is.
+            The world's largest crowdsourced directory of outdoor rinks, ponds, and ODRs. Join the community, track your stats, and always know the ice conditions.
           </p>
 
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-20 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
@@ -164,7 +164,7 @@ export default function LandingPage() {
               <Users className="w-6 h-6 text-emerald-500" />
             </div>
             <h3 className="text-xl font-black italic uppercase tracking-tighter text-white mb-3">Community First</h3>
-            <p className="text-ice-white/60 leading-relaxed">Connect with local players, update ice conditions, and keep the outdoor game alive.</p>
+            <p className="text-ice-white/60 leading-relaxed">Connect with local skaters, update ice conditions, and keep the outdoor rink tradition alive.</p>
           </div>
         </div>
       </section>

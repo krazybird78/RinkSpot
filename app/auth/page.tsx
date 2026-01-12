@@ -91,10 +91,10 @@ export default function AuthPage() {
                         </h1>
 
                         <h2 className="text-lg font-bold italic uppercase tracking-wider text-ice-white/90 mb-2">
-                            {isSignUp ? 'JOIN THE SQUAD' : 'WELCOME BACK'}
+                            {isSignUp ? 'JOIN THE COMMUNITY' : 'WELCOME BACK'}
                         </h2>
                         <p className="text-ice-white/50 text-xs font-medium tracking-wide">
-                            {isSignUp ? 'Create your player profile' : 'Sign in to access the Locker Room'}
+                            {isSignUp ? 'Create your user profile' : 'Sign in to access your profile'}
                         </p>
                     </div>
 
@@ -108,7 +108,7 @@ export default function AuthPage() {
                     <form onSubmit={handleAuth} className="space-y-5">
                         {isSignUp && (
                             <div className="space-y-2">
-                                <label className="text-[10px] font-bold text-ice-white/60 tracking-wider uppercase ml-1">Player Name</label>
+                                <label className="text-[10px] font-bold text-ice-white/60 tracking-wider uppercase ml-1">Display Name</label>
                                 <div className="relative group">
                                     <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-ice-white/40 group-focus-within:text-vegas-gold transition-colors" />
                                     <input

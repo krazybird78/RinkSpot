@@ -20,7 +20,7 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
 
                 <div className="text-center mb-8">
                     <h1 className="text-3xl md:text-4xl font-black italic tracking-tighter mb-2 uppercase"><span className="text-ice-white">RINK</span><span className="text-[#A5F2F3]">SPOT</span></h1>
-                    <p className="text-xs font-bold font-sans text-ice-white/60 tracking-[0.2em] uppercase">Instruction Manual</p>
+                    <p className="text-xs font-bold font-sans text-ice-white/60 tracking-[0.2em] uppercase">How RinkSpot Works</p>
                 </div>
 
                 <div className="space-y-6">
@@ -69,10 +69,10 @@ export default function IntroModal({ isOpen, onClose }: IntroModalProps) {
                         }}
                         className="w-full bg-vegas-gold/10 hover:bg-vegas-gold/20 border border-vegas-gold/20 text-vegas-gold py-4 text-sm font-black rounded-xl shadow-lg shadow-vegas-gold/10 hover:scale-[1.02] active:scale-[0.98] transition-all tracking-wider uppercase flex items-center justify-center gap-2"
                     >
-                        START GAME
+                        START EXPLORING
                     </button>
                     <p className="mt-4 text-[10px] font-bold text-ice-white/20 tracking-widest font-sans uppercase">
-                        Press Start to Play
+                        Discover rinks and conditions
                     </p>
                 </div>
             </div>

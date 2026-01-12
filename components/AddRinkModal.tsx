@@ -434,7 +434,7 @@ export default function AddRinkModal({
                         disabled={loading}
                         className="w-full bg-emerald-500/10 hover:bg-emerald-500/20 backdrop-blur-md border border-emerald-500/20 text-emerald-500 py-3 font-black text-lg rounded-xl shadow-lg shadow-emerald-500/10 disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:scale-[1.02] active:scale-[0.98] uppercase tracking-wider flex items-center justify-center gap-2"
                     >
-                        {loading ? 'ADDING...' : <><MapPin className="w-5 h-5" /> FACE OFF</>}
+                        {loading ? 'ADDING...' : <><MapPin className="w-5 h-5" /> ADD RINK</>}
                     </button>
                 </form>
             </div>

@@ -210,8 +210,8 @@ export default function LockerRoom({ isOpen, onClose }: LockerRoomProps) {
                 <div className="relative z-10">
                     <div className="flex justify-between items-center mb-8">
                         <div>
-                            <h2 className="text-3xl font-black italic tracking-tighter text-ice-white uppercase">LOCKER <span className="text-vegas-gold">ROOM</span></h2>
-                            <p className="text-xs text-ice-white/60 font-bold tracking-wider mt-1">MANAGER PROFILE & EQUIPMENT</p>
+                            <h2 className="text-3xl font-black italic tracking-tighter text-ice-white uppercase">USER <span className="text-vegas-gold">PROFILE</span></h2>
+                            <p className="text-xs text-ice-white/60 font-bold tracking-wider mt-1">MANAGE ACCOUNT & THEMES</p>
                         </div>
                         <button
                             onClick={onClose}
@@ -252,7 +252,7 @@ export default function LockerRoom({ isOpen, onClose }: LockerRoomProps) {
                                     <div className="bg-ice-white/5 border border-ice-white/10 p-4 rounded-2xl flex flex-col items-center justify-center text-center group hover:bg-ice-white/10 transition-colors">
                                         <Trophy className="w-5 h-5 mb-2 text-vegas-gold group-hover:scale-110 transition-transform" />
                                         <p className="text-2xl font-black text-ice-white leading-none mb-1">{stats.total_points}</p>
-                                        <p className="text-[10px] font-bold text-ice-white/40 tracking-wider">CAREER POINTS</p>
+                                        <p className="text-[10px] font-bold text-ice-white/40 tracking-wider">CONTRIBUTION POINTS</p>
                                     </div>
                                     <div className="bg-ice-white/5 border border-ice-white/10 p-4 rounded-2xl flex flex-col items-center justify-center text-center group hover:bg-ice-white/10 transition-colors">
                                         <MapPin className="w-5 h-5 mb-2 text-rink-blue group-hover:scale-110 transition-transform" />
@@ -275,11 +275,11 @@ export default function LockerRoom({ isOpen, onClose }: LockerRoomProps) {
                             <div className="grid md:grid-cols-2 gap-8">
                                 {/* Left Column: Identity */}
                                 <div className="space-y-6">
-                                    <h3 className="text-xs font-black text-ice-white/40 uppercase tracking-widest border-b border-ice-white/10 pb-2 mb-4">MANAGER IDENTITY</h3>
+                                    <h3 className="text-xs font-black text-ice-white/40 uppercase tracking-widest border-b border-ice-white/10 pb-2 mb-4">USER IDENTITY</h3>
 
                                     {/* Player Name */}
                                     <div>
-                                        <label className="block text-xs font-bold mb-2 text-ice-white/60 tracking-wider">MANAGER NAME</label>
+                                        <label className="block text-xs font-bold mb-2 text-ice-white/60 tracking-wider">DISPLAY NAME</label>
                                         <input
                                             type="text"
                                             value={displayName}
@@ -344,7 +344,7 @@ export default function LockerRoom({ isOpen, onClose }: LockerRoomProps) {
 
                                 {/* Right Column: Customization */}
                                 <div>
-                                    <h3 className="text-xs font-black text-ice-white/40 uppercase tracking-widest border-b border-ice-white/10 pb-2 mb-4">EQUIPMENT</h3>
+                                    <h3 className="text-xs font-black text-ice-white/40 uppercase tracking-widest border-b border-ice-white/10 pb-2 mb-4">PROFILE THEMES</h3>
 
                                     <div className="space-y-6">
 
