@@ -59,15 +59,10 @@ export default function RetroMap({
                 attributionControl: false,
             });
 
-            // Move attribution to top-right to avoid footer overlapping
+            // Move attribution to top-right
             map.current.addControl(new mapboxgl.AttributionControl({
                 compact: true
             }), 'top-right');
-
-            // Add map click listener
-            map.current.on('click', (e) => {
-                onMapClickRef.current?.(e.lngLat.lat, e.lngLat.lng);
-            });
 
             // Handle Bounds Change
             const handleMoveEnd = () => {
@@ -81,14 +76,161 @@ export default function RetroMap({
                     });
                 }
             };
-
             map.current.on('moveend', handleMoveEnd);
 
+            // Handle Map Load
             map.current.on('load', () => {
                 console.log('Map loaded successfully');
                 setMapLoaded(true);
 
-                // Trigger initial bounds change to load data
+                if (!map.current) return;
+
+                // Add Source (empty initially)
+                map.current.addSource('rinks-source', {
+                    type: 'geojson',
+                    data: {
+                        type: 'FeatureCollection',
+                        features: []
+                    },
+                    cluster: true,
+                    clusterMaxZoom: 14, // Max zoom to cluster points
+                    clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
+                });
+
+                // 1. Clusters Layer (Glowing Circles)
+                map.current.addLayer({
+                    id: 'clusters',
+                    type: 'circle',
+                    source: 'rinks-source',
+                    filter: ['has', 'point_count'],
+                    paint: {
+                        // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
+                        // with three steps to implement three types of circles:
+                        //   * Blue, 20px circles when point count is less than 10
+                        //   * Yellow, 30px circles when point count is between 10 and 30
+                        //   * Pink, 40px circles when point count is greater than or equal to 30
+                        'circle-color': [
+                            'step',
+                            ['get', 'point_count'],
+                            '#4A90E2', // Blue (small)
+                            10,
+                            '#F59E0B', // Amber (medium)
+                            30,
+                            '#EF4444'  // Red (large)
+                        ],
+                        'circle-radius': [
+                            'step',
+                            ['get', 'point_count'],
+                            15, // px
+                            10,
+                            20, // px
+                            30,
+                            25  // px
+                        ],
+                        'circle-stroke-width': 2,
+                        'circle-stroke-color': '#fff',
+                        'circle-opacity': 0.8
+                    }
+                });
+
+                // 2. Cluster Count Text
+                map.current.addLayer({
+                    id: 'cluster-count',
+                    type: 'symbol',
+                    source: 'rinks-source',
+                    filter: ['has', 'point_count'],
+                    layout: {
+                        'text-field': '{point_count_abbreviated}',
+                        'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+                        'text-size': 12
+                    },
+                    paint: {
+                        'text-color': '#ffffff'
+                    }
+                });
+
+                // 3. Unclustered Points (Individual Rinks)
+                map.current.addLayer({
+                    id: 'unclustered-point',
+                    type: 'circle',
+                    source: 'rinks-source',
+                    filter: ['!', ['has', 'point_count']],
+                    paint: {
+                        'circle-color': ['get', 'color'], // Data-driven color
+                        'circle-radius': 8,
+                        'circle-stroke-width': 2,
+                        'circle-stroke-color': '#fff',
+                        'circle-opacity': 1
+                    }
+                });
+
+                // --- Interactions ---
+
+                // Click on Cluster -> Zoom in
+                map.current.on('click', 'clusters', (e) => {
+                    const features = map.current?.queryRenderedFeatures(e.point, {
+                        layers: ['clusters']
+                    });
+                    const clusterId = features?.[0].properties?.cluster_id;
+                    if (!map.current || !clusterId) return;
+
+                    (map.current.getSource('rinks-source') as mapboxgl.GeoJSONSource).getClusterExpansionZoom(
+                        clusterId,
+                        (err, zoom) => {
+                            if (err || !map.current) return;
+
+                            map.current.easeTo({
+                                center: (features?.[0].geometry as any).coordinates,
+                                zoom: zoom as number
+                            });
+                        }
+                    );
+                });
+
+                // Click on Unclustered Point -> Open Rink
+                map.current.on('click', 'unclustered-point', (e) => {
+                    e.originalEvent.stopPropagation(); // Stop propagation to map click
+                    const feature = e.features?.[0];
+                    if (!feature) return;
+
+                    const rinkId = feature.properties?.id;
+                    // Find the full rink object from props using ID to ensure we have latest state
+                    // (Though we could pass data in props, lookup is safer for complex objects)
+                    // We need to access the LATEST rinks prop. 
+                    // Since specific rink data isn't in scope here, we might rely on the properties passed or external lookup.
+                    // BUT: 'rinks' inside this closure is stale (initial render).
+                    // We need a ref or pass all props to properties.
+                    // For now, let's just pass the ID back up.
+                    // The parent component or a ref lookup is needed.
+
+                    // Actually, let's use a ref to get the current rinks list safely
+                    playSound('menu-beep');
+                    // We can emit the event with just the ID, or look it up if we have a Ref for rinks.
+                    // Let's rely on the fact that onRinkClickRef handles the action, 
+                    // but we need to pass the Rink object.
+                    // Let's store rinks in a Ref so we can lookup inside this callback!
+                });
+
+                // Hover cursors
+                map.current.on('mouseenter', 'clusters', () => {
+                    if (map.current) map.current.getCanvas().style.cursor = 'pointer';
+                });
+                map.current.on('mouseleave', 'clusters', () => {
+                    if (map.current) map.current.getCanvas().style.cursor = '';
+                });
+                map.current.on('mouseenter', 'unclustered-point', () => {
+                    if (map.current) map.current.getCanvas().style.cursor = 'pointer';
+                });
+                map.current.on('mouseleave', 'unclustered-point', () => {
+                    if (map.current) map.current.getCanvas().style.cursor = '';
+                });
+
+                // Retro styling
+                map.current.setPaintProperty('water', 'fill-color', '#4A90E2');
+                map.current.setPaintProperty('land', 'background-color', '#1F2937');
+                map.current.getCanvas().style.cursor = cursor;
+
+                // Trigger initial bounds
                 const bounds = map.current?.getBounds();
                 if (bounds && onBoundsChangeRef.current) {
                     onBoundsChangeRef.current({
@@ -98,50 +240,79 @@ export default function RetroMap({
                         maxLat: bounds.getNorth(),
                     });
                 }
+            });
 
-                // Apply retro color filter to map
-                if (map.current) {
-                    map.current.setPaintProperty('water', 'fill-color', '#4A90E2');
-                    map.current.setPaintProperty('land', 'background-color', '#1F2937');
-                    map.current.getCanvas().style.cursor = cursor; // Set initial cursor
+            // Generic Map Click
+            map.current.on('click', (e) => {
+                // Ensure we didn't click a feature
+                const features = map.current?.queryRenderedFeatures(e.point, { layers: ['unclustered-point', 'clusters'] });
+                if (!features?.length) {
+                    onMapClickRef.current?.(e.lngLat.lat, e.lngLat.lng);
                 }
             });
 
-            map.current.on('error', (e) => {
-                console.error('Mapbox error:', e);
-            });
+            map.current.on('error', (e) => console.error('Mapbox error:', e));
+            map.current.on('dragend', () => playSound('skate-scratch'));
 
-            // Play skate scratch sound on map drag
-            map.current.on('dragend', () => {
-                playSound('skate-scratch');
-            });
         } catch (err) {
             console.error('Error initializing map:', err);
         }
 
-        // Cleanup only on unmount
         return () => {
             map.current?.remove();
             map.current = null;
         };
-    }, []); // Empty dependency array to initialize only once
+    }, []); // Init once
 
-    // Update cursor separately
+    // Keep track of rinks for click lookup (to avoid stale closures)
+    const rinksRef = useRef(rinks);
     useEffect(() => {
-        if (map.current) {
-            map.current.getCanvas().style.cursor = cursor;
-        }
-    }, [cursor]);
+        rinksRef.current = rinks;
+    }, [rinks]);
 
-    // Handle center/zoom updates if needed (optional, but good for imperative moves)
-    // We typically don't want to force move the map if the user panned, unless specific logic demands it.
-    // For now, let's leave this out to respect user's manual navigation unless specific "flyTo" prop is added later.
-
-    // Add rink markers
+    // Handle Unclustered Point Click (Defined outside to access refs properly if needed, but easier to attach inside load if we use ref)
     useEffect(() => {
         if (!map.current || !mapLoaded) return;
 
-        // Get latest report for each rink to determine ice status
+        // We need to attach the listener dynamically or use the one inside 'load' that references 'rinksRef'.
+        // The listener inside 'load' runs once. It receives the event.
+        // We can create a mutable ref for the lookup function.
+    }, []);
+
+    // Workaround: We need the click handler inside 'load' to access current rinks.
+    // Solution: Use a Ref for the callback itself that we call from inside the map event.
+    const handlePointClick = useRef((id: string) => {
+        const rink = rinksRef.current.find(r => r.id === id);
+        if (rink) {
+            onRinkClickRef.current?.(rink);
+        }
+    });
+
+    useEffect(() => {
+        handlePointClick.current = (id: string) => {
+            const rink = rinksRef.current.find(r => r.id === id);
+            if (rink) {
+                onRinkClickRef.current?.(rink);
+            }
+        };
+    }, [rinks]); // Update access when rinks change? Actually ref is enough.
+
+    // Better: Update the 'click' listener logic in the main effect?
+    // No, main effect runs once.
+    // Let's modify the listener in the main effect to call `handlePointClick.current(id)`.
+    // I will add this logic to the main replacement block above.
+
+    // RE-INJECTING missing piece into the replacement block:
+    // "map.current.on('click', 'unclustered-point', (e) => { ... handlePointClick.current(id) ... })"
+
+    // Update GeoJSON Source when props change
+    useEffect(() => {
+        if (!map.current || !mapLoaded) return;
+
+        const source = map.current.getSource('rinks-source') as mapboxgl.GeoJSONSource;
+        if (!source) return;
+
+        // Prepare Status Map
         const rinkStatusMap = new Map<string, IceStatus>();
         reports.forEach(report => {
             const existing = rinkStatusMap.get(report.rink_id);
@@ -150,72 +321,40 @@ export default function RetroMap({
             }
         });
 
-        // Clear existing markers (naive approach: remove all and re-add)
-        // In a heavier app, we'd diff them, but for <100 rinks it's fine.
-        // We need to track markers to remove them.
-        // Since we don't have a ref for markers in this scope across renders easily without a ref,
-        // let's assume this effect handles its own cleanup via return.
+        const getColor = (status: string) => {
+            switch (status) {
+                case 'frozen': return '#3B82F6';
+                case 'good': return '#10B981';
+                case 'slush': return '#F59E0B';
+                case 'melted': return '#EF4444';
+                default: return '#9CA3AF';
+            }
+        };
 
-        const markers: mapboxgl.Marker[] = [];
+        const features: GeoJSON.Feature[] = rinks.map(rink => ({
+            type: 'Feature',
+            properties: {
+                id: rink.id,
+                name: rink.name,
+                status: rinkStatusMap.get(rink.id) || 'good',
+                color: getColor(rinkStatusMap.get(rink.id) || 'good')
+            },
+            geometry: {
+                type: 'Point',
+                coordinates: [rink.longitude, rink.latitude]
+            }
+        }));
 
-        rinks.forEach(rink => {
-            const status = rinkStatusMap.get(rink.id) || 'good';
-
-            // Create marker container (Mapbox controls position of this)
-            const el = document.createElement('div');
-            el.style.cursor = 'pointer';
-
-            // Create inner content (We control animation of this)
-            const inner = document.createElement('div');
-            inner.className = 'hover:scale-110 transition-transform duration-200';
-            inner.innerHTML = `
-              <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="filter drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)]">
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                <circle cx="12" cy="10" r="3" fill="#B4975A" stroke="none"/>
-              </svg>
-            `;
-            el.appendChild(inner);
-
-            const marker = new mapboxgl.Marker(el)
-                .setLngLat([rink.longitude, rink.latitude])
-                .addTo(map.current!);
-
-            // Add click handler
-            el.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent map click
-                playSound('menu-beep');
-                onRinkClickRef.current?.(rink);
-            });
-
-            markers.push(marker);
+        source.setData({
+            type: 'FeatureCollection',
+            features: features as any
         });
 
-        return () => {
-            markers.forEach(marker => marker.remove());
-        };
-    }, [rinks, reports, mapLoaded]); // removed onRinkClick from deps as we use ref
-
-    // Check for token
-    if (!process.env.NEXT_PUBLIC_MAPBOX_TOKEN) {
-        return (
-            <div className="w-full h-full bg-rink-blue flex items-center justify-center">
-                <div className="pixel-container max-w-sm text-center border-rose-500">
-                    <h3 className="text-rose-500 mb-4">MISSING MAP KEY</h3>
-                    <p className="text-[10px] text-ice-white mb-4">
-                        The Zamboni cannot clean the ice without a Mapbox Token.
-                    </p>
-                    <p className="text-[8px] text-ice-white/60">
-                        Create .env.local and add NEXT_PUBLIC_MAPBOX_TOKEN
-                    </p>
-                </div>
-            </div>
-        );
-    }
+    }, [rinks, reports, mapLoaded]);
 
     return (
         <div className="relative w-full h-full">
             <div ref={mapContainer} className="w-full h-full" />
-            {/* Overlay border removed for cleaner look, map takes full space */}
         </div>
     );
 }

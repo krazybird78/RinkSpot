@@ -4,12 +4,12 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
-import { LayoutDashboard, ArrowLeft, Trash2, Check, X, ShieldAlert, Snowflake, Wrench, MapPin, FileText, AlertTriangle, Activity } from 'lucide-react';
+import { LayoutDashboard, ArrowLeft, Trash2, Check, X, ShieldAlert, Snowflake, Wrench, MapPin, FileText, AlertTriangle, Activity, Users } from 'lucide-react';
 
 export default function AdminPage() {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
-    const [stats, setStats] = useState({ rinks: 0, reports: 0, pendingDeletions: 0 });
+    const [stats, setStats] = useState({ rinks: 0, reports: 0, pendingDeletions: 0, users: 0 });
     const [deletionRequests, setDeletionRequests] = useState<any[]>([]);
     const [currentUser, setCurrentUser] = useState<string | null>(null);
     const [activeView, setActiveView] = useState<'dashboard' | 'reports' | 'rinks' | 'analytics'>('dashboard');
@@ -207,6 +207,8 @@ export default function AdminPage() {
 
             const { count: reportCount } = await supabase.from('reports').select('*', { count: 'exact', head: true });
 
+            const { count: userCount } = await supabase.from('users').select('*', { count: 'exact', head: true });
+
             // Fetch pending deletion requests with rink info
             const { data: deletions, error } = await supabase
                 .from('deletion_requests')
@@ -219,7 +221,8 @@ export default function AdminPage() {
             setStats({
                 rinks: validRinks.length,
                 reports: reportCount || 0,
-                pendingDeletions: deletions?.length || 0
+                pendingDeletions: deletions?.length || 0,
+                users: userCount || 0
             });
 
             setDeletionRequests(deletions || []);
@@ -305,7 +308,16 @@ export default function AdminPage() {
                 {activeView === 'dashboard' ? (
                     <>
                         {/* Stats Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {/* Metric Card 0 (Users) */}
+                            <div className="bg-puck-black/40 backdrop-blur-xl border border-ice-white/10 rounded-2xl p-6 relative overflow-hidden group hover:border-ice-white/20 transition-all">
+                                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                                    <Users className="w-24 h-24" />
+                                </div>
+                                <h3 className="text-xs font-bold text-ice-white/60 uppercase tracking-widest mb-1">Total Players</h3>
+                                <p className="text-4xl font-black italic text-vegas-gold">{stats.users}</p>
+                            </div>
+
                             {/* Metric Card 1 */}
                             <div className="bg-puck-black/40 backdrop-blur-xl border border-ice-white/10 rounded-2xl p-6 relative overflow-hidden group hover:border-ice-white/20 transition-all">
                                 <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">

@@ -13,6 +13,11 @@ export const AVATAR_MAP: Record<string, string> = {
     'quebec-blue': 'card-quebec',
     'hartford-green': 'card-hartford',
     'minnesota-green': 'card-minnesota',
+    'philly-orange': 'card-philadelphia', // Missing mapping
+    'chicago-red': 'card-chicago',
+    'detroit-red': 'card-detroit',
+    'newyork-blue': 'card-newyork', // Rangers
+    'northstars-green': 'card-northstars',
 
     // Enforcer - Modern Cards
     'enforcer-1': 'card-enforcer-1',

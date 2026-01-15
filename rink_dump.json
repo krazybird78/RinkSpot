@@ -1,0 +1,67 @@
+[
+  {
+    "id": "670d76d8-b71b-486c-ae0a-997897c7d4b8",
+    "name": "Parc de la Fontaine ",
+    "latitude": 45.46339826,
+    "longitude": -73.54297803,
+    "address": "",
+    "city": "Verdun",
+    "country": "Canada",
+    "rink_type": "outdoor",
+    "created_by": "a83b94bd-79a9-4d4e-82b0-9d4ac836c4d7",
+    "created_at": "2026-01-12T01:13:44.92795+00:00",
+    "updated_at": "2026-01-12T01:13:44.92795+00:00"
+  },
+  {
+    "id": "72c38a9a-296d-4cab-ab18-b86d494c8814",
+    "name": "Warwick",
+    "latitude": 45.94678845,
+    "longitude": -71.99799477,
+    "address": "",
+    "city": "Warwick ",
+    "country": "Canada",
+    "rink_type": "outdoor",
+    "created_by": "a83b94bd-79a9-4d4e-82b0-9d4ac836c4d7",
+    "created_at": "2026-01-12T14:31:03.230635+00:00",
+    "updated_at": "2026-01-12T14:31:03.230635+00:00"
+  },
+  {
+    "id": "7c027bb0-9707-4d79-a107-8258de338e14",
+    "name": "Iran Mall Ice Rink",
+    "latitude": 35.7544961,
+    "longitude": 51.19322656,
+    "address": "",
+    "city": "Tehran",
+    "country": "Iran",
+    "rink_type": "indoor",
+    "created_by": "a83b94bd-79a9-4d4e-82b0-9d4ac836c4d7",
+    "created_at": "2026-01-12T15:10:54.106166+00:00",
+    "updated_at": "2026-01-12T15:10:54.106166+00:00"
+  },
+  {
+    "id": "f744579b-3f23-4974-b061-30c4d2ce5efc",
+    "name": "Lac aux Castor",
+    "latitude": 45.49904848,
+    "longitude": -73.59796804,
+    "address": "",
+    "city": "Montreal",
+    "country": "Canada",
+    "rink_type": "pond",
+    "created_by": "a83b94bd-79a9-4d4e-82b0-9d4ac836c4d7",
+    "created_at": "2026-01-13T02:59:41.328871+00:00",
+    "updated_at": "2026-01-13T02:59:41.328871+00:00"
+  },
+  {
+    "id": "78f1e9f4-713f-459c-8b63-712f37efa4a3",
+    "name": "Anneau / Rond de glace",
+    "latitude": 45.65096382,
+    "longitude": -73.50102444,
+    "address": "Rivière-des-Prairies-Pointe-aux-Trembles",
+    "city": "Montreal",
+    "country": "Canada",
+    "rink_type": "outdoor",
+    "created_by": null,
+    "created_at": "2026-01-13T23:29:37.817627+00:00",
+    "updated_at": "2026-01-13T23:29:37.817627+00:00"
+  }
+]

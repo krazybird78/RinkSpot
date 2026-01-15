@@ -1,6 +1,6 @@
 --- Checking Edmonton ---
 --- Checking Edmonton ---
-Found 0 rinks in Edmonton in DB.
+Found 7 rinks in Edmonton in DB.
 
 Checking API: https://data.edmonton.ca/resource/v9f2-2v4e.json
 API Failed: 404 Not Found
