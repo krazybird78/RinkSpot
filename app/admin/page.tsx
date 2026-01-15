@@ -16,6 +16,7 @@ export default function AdminPage() {
     const [reports, setReports] = useState<any[]>([]);
     const [rinks, setRinks] = useState<any[]>([]);
     const [analyticsData, setAnalyticsData] = useState<any>(null);
+    const [userDistribution, setUserDistribution] = useState<any[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [editingRink, setEditingRink] = useState<any | null>(null);
 
@@ -81,6 +82,33 @@ export default function AdminPage() {
             .order('created_at', { ascending: false })
             .limit(500);
 
+        // Fetch user distribution
+        const { data: usersData, error: usersError } = await supabase
+            .from('users')
+            .select('neighborhood_team');
+
+        if (error) {
+            console.error('Error fetching analytics:', error);
+            return;
+        }
+
+        if (usersError) {
+            console.error('Error fetching users for analytics:', usersError);
+        }
+
+        // Process User Distribution
+        const teamCounts: Record<string, number> = {};
+        (usersData || []).forEach(u => {
+            const team = u.neighborhood_team || 'Unknown';
+            teamCounts[team] = (teamCounts[team] || 0) + 1;
+        });
+
+        const totalUsers = (usersData || []).length;
+        const distribution = Object.entries(teamCounts)
+            .map(([name, count]) => ({ name, count, percentage: (count / totalUsers) * 100 }))
+            .sort((a, b) => b.count - a.count);
+
+        setUserDistribution(distribution);
         if (error) {
             console.error('Error fetching analytics:', error);
             return;
@@ -655,6 +683,54 @@ export default function AdminPage() {
                                                     </div>
                                                 </div>
                                             ))}
+                                    </div>
+                                </div>
+
+                                {/* User Distribution Chart */}
+                                <div className="bg-puck-black/40 backdrop-blur-xl border border-ice-white/10 rounded-2xl p-6">
+                                    <h3 className="text-sm font-bold text-ice-white mb-4 uppercase tracking-wider">Player Districts</h3>
+                                    <div className="flex flex-col sm:flex-row items-center gap-6">
+                                        {/* CSS Pie Chart */}
+                                        <div
+                                            className="w-32 h-32 rounded-full shrink-0 relative"
+                                            style={{
+                                                background: `conic-gradient(
+                                                    ${userDistribution.map((d, i, arr) => {
+                                                    const prevSum = arr.slice(0, i).reduce((sum, item) => sum + item.percentage, 0);
+                                                    const colors = ['#B4975A', '#4A90E2', '#EF3340', '#10B981', '#F59E0B', '#6B7280'];
+                                                    const color = colors[i % colors.length];
+                                                    return `${color} ${prevSum}% ${prevSum + d.percentage}%`;
+                                                }).join(', ')}
+                                                )`
+                                            }}
+                                        >
+                                            {/* Inner hole for Donut Chart effect */}
+                                            <div className="absolute inset-4 bg-[#1a2d42] rounded-full flex items-center justify-center">
+                                                <Users className="w-6 h-6 text-ice-white/20" />
+                                            </div>
+                                        </div>
+
+                                        {/* Legend */}
+                                        <div className="flex-1 space-y-2 w-full">
+                                            {userDistribution.slice(0, 5).map((d, i) => {
+                                                const colors = ['#B4975A', '#4A90E2', '#EF3340', '#10B981', '#F59E0B', '#6B7280'];
+                                                const color = colors[i % colors.length];
+                                                return (
+                                                    <div key={d.name} className="flex items-center justify-between text-xs">
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="w-3 h-3 rounded-full" style={{ backgroundColor: color }} />
+                                                            <span className="text-ice-white/80 font-medium">{d.name}</span>
+                                                        </div>
+                                                        <span className="text-ice-white/50">{Math.round(d.percentage)}%</span>
+                                                    </div>
+                                                );
+                                            })}
+                                            {userDistribution.length > 5 && (
+                                                <div className="text-[10px] text-ice-white/30 text-center italic mt-2">
+                                                    + {userDistribution.length - 5} other districts
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
 

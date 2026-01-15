@@ -37,12 +37,19 @@ export default function RetroMap({
     const onMapClickRef = useRef(onMapClick);
     const onBoundsChangeRef = useRef(onBoundsChange);
 
+    // Keep track of rinks for click lookup (to avoid stale closures) in the map init effect
+    const rinksRef = useRef(rinks);
+
     // Update refs when props change
     useEffect(() => {
         onRinkClickRef.current = onRinkClick;
         onMapClickRef.current = onMapClick;
         onBoundsChangeRef.current = onBoundsChange;
     }, [onRinkClick, onMapClick, onBoundsChange]);
+
+    useEffect(() => {
+        rinksRef.current = rinks;
+    }, [rinks]);
 
     // Initialize map
     useEffect(() => {
@@ -194,21 +201,17 @@ export default function RetroMap({
                     if (!feature) return;
 
                     const rinkId = feature.properties?.id;
-                    // Find the full rink object from props using ID to ensure we have latest state
-                    // (Though we could pass data in props, lookup is safer for complex objects)
-                    // We need to access the LATEST rinks prop. 
-                    // Since specific rink data isn't in scope here, we might rely on the properties passed or external lookup.
-                    // BUT: 'rinks' inside this closure is stale (initial render).
-                    // We need a ref or pass all props to properties.
-                    // For now, let's just pass the ID back up.
-                    // The parent component or a ref lookup is needed.
+                    if (!rinkId) return;
 
-                    // Actually, let's use a ref to get the current rinks list safely
                     playSound('menu-beep');
-                    // We can emit the event with just the ID, or look it up if we have a Ref for rinks.
-                    // Let's rely on the fact that onRinkClickRef handles the action, 
-                    // but we need to pass the Rink object.
-                    // Let's store rinks in a Ref so we can lookup inside this callback!
+
+                    // Lookup rink using the Ref to avoid stale closure
+                    const rink = rinksRef.current.find(r => r.id === rinkId);
+                    if (rink) {
+                        onRinkClickRef.current?.(rink);
+                    } else {
+                        console.warn('Rink not found in ref lookup:', rinkId);
+                    }
                 });
 
                 // Hover cursors
@@ -264,43 +267,8 @@ export default function RetroMap({
         };
     }, []); // Init once
 
-    // Keep track of rinks for click lookup (to avoid stale closures)
-    const rinksRef = useRef(rinks);
-    useEffect(() => {
-        rinksRef.current = rinks;
-    }, [rinks]);
+    // Clean up redundant code
 
-    // Handle Unclustered Point Click (Defined outside to access refs properly if needed, but easier to attach inside load if we use ref)
-    useEffect(() => {
-        if (!map.current || !mapLoaded) return;
-
-        // We need to attach the listener dynamically or use the one inside 'load' that references 'rinksRef'.
-        // The listener inside 'load' runs once. It receives the event.
-        // We can create a mutable ref for the lookup function.
-    }, []);
-
-    // Workaround: We need the click handler inside 'load' to access current rinks.
-    // Solution: Use a Ref for the callback itself that we call from inside the map event.
-    const handlePointClick = useRef((id: string) => {
-        const rink = rinksRef.current.find(r => r.id === id);
-        if (rink) {
-            onRinkClickRef.current?.(rink);
-        }
-    });
-
-    useEffect(() => {
-        handlePointClick.current = (id: string) => {
-            const rink = rinksRef.current.find(r => r.id === id);
-            if (rink) {
-                onRinkClickRef.current?.(rink);
-            }
-        };
-    }, [rinks]); // Update access when rinks change? Actually ref is enough.
-
-    // Better: Update the 'click' listener logic in the main effect?
-    // No, main effect runs once.
-    // Let's modify the listener in the main effect to call `handlePointClick.current(id)`.
-    // I will add this logic to the main replacement block above.
 
     // RE-INJECTING missing piece into the replacement block:
     // "map.current.on('click', 'unclustered-point', (e) => { ... handlePointClick.current(id) ... })"
