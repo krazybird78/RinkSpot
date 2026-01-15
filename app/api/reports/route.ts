@@ -42,10 +42,14 @@ export async function GET(request: Request) {
     // Let's implement the Tiering Logic assuming we can detect the user.
     // For now, I'll default to Anon logic if uncertain, which is safe.
 
-    const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.SUPABASE_SERVICE_ROLE_KEY!
-    );
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+
+    if (!supabaseUrl || !supabaseKey) {
+        return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Check for auth header (Bearer token) if client sends it
     const authHeader = request.headers.get('Authorization');

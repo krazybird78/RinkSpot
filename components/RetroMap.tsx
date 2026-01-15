@@ -88,6 +88,17 @@ export default function RetroMap({
                 console.log('Map loaded successfully');
                 setMapLoaded(true);
 
+                // Trigger initial bounds change to load data
+                const bounds = map.current?.getBounds();
+                if (bounds && onBoundsChangeRef.current) {
+                    onBoundsChangeRef.current({
+                        minLng: bounds.getWest(),
+                        maxLng: bounds.getEast(),
+                        minLat: bounds.getSouth(),
+                        maxLat: bounds.getNorth(),
+                    });
+                }
+
                 // Apply retro color filter to map
                 if (map.current) {
                     map.current.setPaintProperty('water', 'fill-color', '#4A90E2');

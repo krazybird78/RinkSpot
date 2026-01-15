@@ -17,18 +17,18 @@ export async function GET(request: Request) {
         );
     }
 
-    // Optimize: Ensure bounds aren't "planetary" level (e.g. whole world)
-    // Optional for now, but good practice later.
+    // Fallback to Anon Key if Service Role is missing (for public read compatibility)
+    // This prevents 500 errors in environments where Service Role isn't set but Anon is available.
+    const hasServiceRole = !!process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-    const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.SUPABASE_SERVICE_ROLE_KEY! // Use service role to bypass potential RLS issues for public reads if needed, or ANON if RLS is set up for public.
-        // Given the prompt implies "Securing", we usually want RLS.
-        // But for a read-only public map, anon key is standard.
-        // However, user often has RLS issues. Let's use standard anon first, but if we need "High Value" data filtering later, we might need more logic.
-        // Wait, the prompt said "Refactor backend/frontend so High Value data is only fetched if authenticated".
-        // For this list endpoint, we just want basic info.
-    );
+    if (!supabaseUrl || !supabaseKey) {
+        console.error('Missing Supabase keys in environment');
+        return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
     try {
         const { data: rinks, error } = await supabase
@@ -40,11 +40,14 @@ export async function GET(request: Request) {
             .lte('longitude', maxLng)
             .limit(100); // Sanity limit for performance
 
-        if (error) throw error;
+        if (error) {
+            console.error('Supabase Error:', error);
+            throw error;
+        }
 
         return NextResponse.json(rinks);
     } catch (error: any) {
         console.error('Error fetching rinks:', error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        return NextResponse.json({ error: error.message || 'Unknown error' }, { status: 500 });
     }
 }

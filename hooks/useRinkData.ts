@@ -14,6 +14,12 @@ export function useRinkData() {
     const [loading, setLoading] = useState(false); // Default to false, wait for map to initiate fetch
 
     const fetchRinksInBounds = useCallback(async (bounds: Bounds) => {
+        // Prevent fetching if bounds are invalid or zero (initial state)
+        if (!bounds || (bounds.minLat === 0 && bounds.maxLat === 0 && bounds.minLng === 0 && bounds.maxLng === 0)) {
+            console.log('Skipping fetch with invalid bounds:', bounds);
+            return;
+        }
+
         setLoading(true);
         console.log('Fetching rinks for bounds:', bounds);
         try {
