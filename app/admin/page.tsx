@@ -109,10 +109,7 @@ export default function AdminPage() {
             .sort((a, b) => b.count - a.count);
 
         setUserDistribution(distribution);
-        if (error) {
-            console.error('Error fetching analytics:', error);
-            return;
-        }
+
 
         const reports = data || [];
 
@@ -694,19 +691,21 @@ export default function AdminPage() {
                                         <div
                                             className="w-32 h-32 rounded-full shrink-0 relative"
                                             style={{
-                                                background: `conic-gradient(
-                                                    ${userDistribution.map((d, i, arr) => {
-                                                    const prevSum = arr.slice(0, i).reduce((sum, item) => sum + item.percentage, 0);
-                                                    const colors = ['#B4975A', '#4A90E2', '#EF3340', '#10B981', '#F59E0B', '#6B7280'];
-                                                    const color = colors[i % colors.length];
-                                                    return `${color} ${prevSum}% ${prevSum + d.percentage}%`;
-                                                }).join(', ')}
-                                                )`
+                                                background: userDistribution.length > 0
+                                                    ? `conic-gradient(
+                                                        ${userDistribution.map((d, i, arr) => {
+                                                        const prevSum = arr.slice(0, i).reduce((sum, item) => sum + item.percentage, 0);
+                                                        const colors = ['#B4975A', '#4A90E2', '#EF3340', '#10B981', '#F59E0B', '#6B7280'];
+                                                        const color = colors[i % colors.length];
+                                                        return `${color} ${prevSum}% ${prevSum + d.percentage}%`;
+                                                    }).join(', ')}
+                                                    )`
+                                                    : '#1a1a1a' // Fallback color
                                             }}
                                         >
                                             {/* Inner hole for Donut Chart effect */}
                                             <div className="absolute inset-4 bg-[#1a2d42] rounded-full flex items-center justify-center">
-                                                <Users className="w-6 h-6 text-ice-white/20" />
+                                                <Users className={`w-6 h-6 ${userDistribution.length > 0 ? 'text-ice-white/20' : 'text-ice-white/5'}`} />
                                             </div>
                                         </div>
 
@@ -728,6 +727,12 @@ export default function AdminPage() {
                                             {userDistribution.length > 5 && (
                                                 <div className="text-[10px] text-ice-white/30 text-center italic mt-2">
                                                     + {userDistribution.length - 5} other districts
+                                                </div>
+                                            )}
+
+                                            {userDistribution.length === 0 && (
+                                                <div className="text-xs text-ice-white/30 italic text-center py-4 bg-ice-white/5 rounded-xl border border-dashed border-ice-white/10">
+                                                    No user location data available yet.
                                                 </div>
                                             )}
                                         </div>

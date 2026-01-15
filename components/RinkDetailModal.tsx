@@ -12,6 +12,7 @@ import { getWeather, getIceStatus, getIcePredictionMessage, WeatherData } from '
 import { MapPin, Thermometer, Users, Trash2, Snowflake, FileText, Star, X, CircleHelp } from 'lucide-react';
 import CrowdMeter from './CrowdMeter';
 import AddReportModal from './AddReportModal';
+import PlayerCard from '@/components/PlayerCard';
 
 interface RinkDetailModalProps {
     rink: Rink | null;
@@ -27,6 +28,7 @@ export default function RinkDetailModal({ rink, isOpen, onClose }: RinkDetailMod
     const [showAddReport, setShowAddReport] = useState(false);
     const [deletionRequest, setDeletionRequest] = useState<any | null>(null);
     const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+    const [previewAvatarId, setPreviewAvatarId] = useState<string | null>(null);
 
     useEffect(() => {
         if (isOpen && rink) {
@@ -215,21 +217,21 @@ export default function RinkDetailModal({ rink, isOpen, onClose }: RinkDetailMod
                                 )}
                                 <div className="col-span-2 flex flex-col sm:flex-row sm:items-center justify-between border-t-2 border-status-good/30 pt-3 mt-2 gap-2 sm:gap-0">
                                     <div className="flex items-center gap-3 overflow-hidden">
-                                        <div className="shrink-0 w-8 h-8 flex items-center justify-center bg-puck-black/50 rounded-lg border border-ice-white/20">
-                                            {latestReport.users?.avatar_id && AVATAR_MAP[latestReport.users.avatar_id] ? (
-                                                <Image
-                                                    src={`/sprites/${AVATAR_MAP[latestReport.users.avatar_id]}.png`}
-                                                    alt="Avatar"
-                                                    width={20}
-                                                    height={20}
-                                                    className="pixel-art"
-                                                />
-                                            ) : (
-                                                <div
-                                                    className={`w-3 h-3 rounded-full border border-ice-white bg-[var(--${latestReport.users?.avatar_id || 'vegas-gold'})]`}
-                                                />
-                                            )}
-                                        </div>
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                if (latestReport.users?.avatar_id) setPreviewAvatarId(latestReport.users.avatar_id);
+                                            }}
+                                            title="View Avatar"
+                                            className="shrink-0 w-8 h-8 flex items-center justify-center bg-puck-black/50 rounded-lg border border-ice-white/20 hover:scale-110 hover:border-vegas-gold transition-all overflow-hidden relative group"
+                                        >
+                                            <PlayerCard
+                                                avatarId={latestReport.users?.avatar_id || 'vegas-gold'}
+                                                size="sm"
+                                                showName={false}
+                                                className="w-full h-full !rounded-none border-none shadow-none transform scale-125"
+                                            />
+                                        </button>
                                         <span className="text-ice-white text-xs font-bold truncate max-w-[140px]">
                                             {latestReport.users?.display_name || 'Anonymous'}
                                         </span>
@@ -364,7 +366,8 @@ export default function RinkDetailModal({ rink, isOpen, onClose }: RinkDetailMod
                         )}
                     </div>
                 </div>
-            )}      <AddReportModal
+            )}
+            <AddReportModal
                 rinkId={rink.id}
                 rinkName={rink.name}
                 latitude={rink.latitude}
@@ -376,6 +379,34 @@ export default function RinkDetailModal({ rink, isOpen, onClose }: RinkDetailMod
                     // Also refresh parent map data if needed? For now just local reports.
                 }}
             />
+
+            {/* Avatar Zoom Modal */}
+            {previewAvatarId && (
+                <div
+                    className="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[110] p-6 animate-in fade-in duration-200"
+                    onClick={() => setPreviewAvatarId(null)}
+                >
+                    <div className="relative animate-in zoom-in-95 duration-300 pointer-events-none">
+                        {/* We use a large PlayerCard here. We need to import PlayerCard.
+                            Wait, PlayerCard is not imported. I need to add the import.
+                            I will do that in a separate edit or include it at the top of the file.
+                            For now, assuming I will add the import, let's use it.
+                          */}
+                        <PlayerCard avatarId={previewAvatarId} size="xl" className="shadow-[0_0_100px_rgba(180,151,90,0.3)] pointer-events-auto" />
+                        <button
+                            className="absolute -bottom-16 left-1/2 -translate-x-1/2 text-ice-white/50 text-xs font-bold uppercase tracking-widest hover:text-white transition-colors pointer-events-auto"
+                        >
+                            Tap to close
+                        </button>
+                    </div>
+                </div>
+            )}
         </div >
     );
 }
+
+// Helper for importing PlayerCard if it's not already there.
+// Since I can't add imports easily with replace_file_content if I'm targeting the bottom,
+// I'll assume I need to do a multi-replace or two edits.
+// Actually, I'll use multi_replace_file_content to do both import and render logic changes.
+

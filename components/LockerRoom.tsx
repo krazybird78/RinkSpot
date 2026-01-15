@@ -355,27 +355,27 @@ export default function LockerRoom({ isOpen, onClose }: LockerRoomProps) {
                                                 <button
                                                     key={color.name}
                                                     type="button"
-                                                    onClick={() => setSelectedColor(color.primary)}
+                                                    onClick={() => setSelectedColor(color.avatar)}
                                                     className="group flex flex-col items-center gap-4 focus:outline-none"
                                                 >
                                                     <div className="relative transition-transform duration-300 group-hover:scale-105">
                                                         <PlayerCard
-                                                            avatarId={color.primary}
+                                                            avatarId={color.avatar}
                                                             size="md"
                                                             className={cn(
                                                                 "transition-all duration-300",
-                                                                selectedColor === color.primary
+                                                                selectedColor === color.avatar
                                                                     ? "ring-2 ring-emerald-500 ring-offset-4 ring-offset-black shadow-[0_0_30px_rgba(16,185,129,0.4)] scale-105 z-10"
                                                                     : "opacity-80 group-hover:opacity-100 group-hover:shadow-lg"
                                                             )}
                                                         />
-                                                        {selectedColor === color.primary && (
+                                                        {selectedColor === color.avatar && (
                                                             <div className="absolute -top-3 -right-3 w-6 h-6 bg-emerald-500 rounded-full border-2 border-black shadow-[0_0_15px_rgba(16,185,129,0.6)] animate-in zoom-in spin-in-90 duration-300 z-20 flex items-center justify-center">
                                                                 <Check className="w-3.5 h-3.5 text-white font-black" strokeWidth={4} />
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <span className={`text-[9px] font-bold uppercase tracking-wider transition-colors ${selectedColor === color.primary ? 'text-emerald-400' : 'text-ice-white/40 group-hover:text-ice-white/80'}`}>
+                                                    <span className={`text-[9px] font-bold uppercase tracking-wider transition-colors ${selectedColor === color.avatar ? 'text-emerald-400' : 'text-ice-white/40 group-hover:text-ice-white/80'}`}>
                                                         {color.name}
                                                     </span>
                                                 </button>
@@ -386,27 +386,27 @@ export default function LockerRoom({ isOpen, onClose }: LockerRoomProps) {
                                                 <button
                                                     key={color.name}
                                                     type="button"
-                                                    onClick={() => setSelectedColor(color.primary)}
+                                                    onClick={() => setSelectedColor(color.avatar)}
                                                     className="group flex flex-col items-center gap-4 focus:outline-none"
                                                 >
                                                     <div className="relative transition-transform duration-300 group-hover:scale-105">
                                                         <PlayerCard
-                                                            avatarId={color.primary}
+                                                            avatarId={color.avatar}
                                                             size="md"
                                                             className={cn(
                                                                 "transition-all duration-300",
-                                                                selectedColor === color.primary
+                                                                selectedColor === color.avatar
                                                                     ? "ring-2 ring-emerald-500 ring-offset-4 ring-offset-black shadow-[0_0_30px_rgba(16,185,129,0.4)] scale-105 z-10"
                                                                     : "opacity-80 group-hover:opacity-100 group-hover:shadow-lg"
                                                             )}
                                                         />
-                                                        {selectedColor === color.primary && (
+                                                        {selectedColor === color.avatar && (
                                                             <div className="absolute -top-3 -right-3 w-6 h-6 bg-emerald-500 rounded-full border-2 border-black shadow-[0_0_15px_rgba(16,185,129,0.6)] animate-in zoom-in spin-in-90 duration-300 z-20 flex items-center justify-center">
                                                                 <Check className="w-3.5 h-3.5 text-white font-black" strokeWidth={4} />
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <span className={`text-[9px] font-bold uppercase tracking-wider transition-colors ${selectedColor === color.primary ? 'text-emerald-400' : 'text-ice-white/40 group-hover:text-ice-white/80'}`}>
+                                                    <span className={`text-[9px] font-bold uppercase tracking-wider transition-colors ${selectedColor === color.avatar ? 'text-emerald-400' : 'text-ice-white/40 group-hover:text-ice-white/80'}`}>
                                                         {color.name.substring(0, 8)}..
                                                     </span>
                                                 </button>
@@ -417,27 +417,27 @@ export default function LockerRoom({ isOpen, onClose }: LockerRoomProps) {
                                                 <button
                                                     key={color.name}
                                                     type="button"
-                                                    onClick={() => setSelectedColor(color.primary)}
+                                                    onClick={() => setSelectedColor(color.avatar)}
                                                     className="group flex flex-col items-center gap-4 focus:outline-none"
                                                 >
                                                     <div className="relative transition-transform duration-300 group-hover:scale-105">
                                                         <PlayerCard
-                                                            avatarId={color.primary}
+                                                            avatarId={color.avatar}
                                                             size="md"
                                                             className={cn(
                                                                 "transition-all duration-300",
-                                                                selectedColor === color.primary
+                                                                selectedColor === color.avatar
                                                                     ? "ring-2 ring-emerald-500 ring-offset-4 ring-offset-black shadow-[0_0_30px_rgba(16,185,129,0.4)] scale-105 z-10"
                                                                     : "opacity-80 group-hover:opacity-100 group-hover:shadow-lg"
                                                             )}
                                                         />
-                                                        {selectedColor === color.primary && (
+                                                        {selectedColor === color.avatar && (
                                                             <div className="absolute -top-3 -right-3 w-6 h-6 bg-emerald-500 rounded-full border-2 border-black shadow-[0_0_15px_rgba(16,185,129,0.6)] animate-in zoom-in spin-in-90 duration-300 z-20 flex items-center justify-center">
                                                                 <Check className="w-3.5 h-3.5 text-white font-black" strokeWidth={4} />
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <span className={`text-[9px] font-bold uppercase tracking-wider transition-colors ${selectedColor === color.primary ? 'text-emerald-400' : 'text-ice-white/40 group-hover:text-ice-white/80'}`}>
+                                                    <span className={`text-[9px] font-bold uppercase tracking-wider transition-colors ${selectedColor === color.avatar ? 'text-emerald-400' : 'text-ice-white/40 group-hover:text-ice-white/80'}`}>
                                                         {color.name.substring(0, 8)}..
                                                     </span>
                                                 </button>
@@ -448,7 +448,7 @@ export default function LockerRoom({ isOpen, onClose }: LockerRoomProps) {
                                                 <button
                                                     key={color.name}
                                                     type="button"
-                                                    onClick={() => setSelectedColor(color.primary)}
+                                                    onClick={() => setSelectedColor(color.avatar)}
                                                     className="group flex flex-col items-center gap-4 focus:outline-none"
                                                 >
                                                     <div className="relative transition-transform duration-300 group-hover:scale-105">
@@ -457,18 +457,18 @@ export default function LockerRoom({ isOpen, onClose }: LockerRoomProps) {
                                                             size="md"
                                                             className={cn(
                                                                 "transition-all duration-300",
-                                                                selectedColor === color.primary
+                                                                selectedColor === color.avatar
                                                                     ? "ring-2 ring-emerald-500 ring-offset-4 ring-offset-black shadow-[0_0_30px_rgba(16,185,129,0.4)] scale-105 z-10"
                                                                     : "opacity-80 group-hover:opacity-100 group-hover:shadow-lg"
                                                             )}
                                                         />
-                                                        {selectedColor === color.primary && (
+                                                        {selectedColor === color.avatar && (
                                                             <div className="absolute -top-3 -right-3 w-6 h-6 bg-emerald-500 rounded-full border-2 border-black shadow-[0_0_15px_rgba(16,185,129,0.6)] animate-in zoom-in spin-in-90 duration-300 z-20 flex items-center justify-center">
                                                                 <Check className="w-3.5 h-3.5 text-white font-black" strokeWidth={4} />
                                                             </div>
                                                         )}
                                                     </div>
-                                                    <span className={`text-[9px] font-bold uppercase tracking-wider transition-colors ${selectedColor === color.primary ? 'text-emerald-400' : 'text-ice-white/40 group-hover:text-ice-white/80'}`}>
+                                                    <span className={`text-[9px] font-bold uppercase tracking-wider transition-colors ${selectedColor === color.avatar ? 'text-emerald-400' : 'text-ice-white/40 group-hover:text-ice-white/80'}`}>
                                                         {color.name}
                                                     </span>
                                                 </button>

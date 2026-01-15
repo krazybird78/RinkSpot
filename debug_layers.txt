@@ -1,0 +1,90 @@
+Checking Minneapolis Layer 0: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/0?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 1: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/1?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 2: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/2?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 3: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/3?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 4: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/4?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 5: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/5?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 6: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/6?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 7: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/7?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 8: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/8?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 9: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/9?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 10: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/10?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 11: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/11?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 12: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/12?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 13: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/13?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 14: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/14?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 15: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/15?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 16: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/16?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 17: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/17?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 18: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/18?f=pjson
+Error: Invalid URL
+
+Checking Minneapolis Layer 19: https://services.arcgis.com/afSMGVsC7QlRK1kZ/ArcGIS/rest/services/MPRB_PublicLayers/FeatureServer/19?f=pjson
+Error: Invalid URL
+
+Checking Milwaukee Layer 0: https://services.arcgis.com/QeS8g9gPzY5Y9d95/ArcGIS/rest/services/Milwaukee_County_Park_Attractions/FeatureServer/0?f=pjson
+Error: Invalid URL
+
+Checking Milwaukee Layer 1: https://services.arcgis.com/QeS8g9gPzY5Y9d95/ArcGIS/rest/services/Milwaukee_County_Park_Attractions/FeatureServer/1?f=pjson
+Error: Invalid URL
+
+Checking Milwaukee Layer 2: https://services.arcgis.com/QeS8g9gPzY5Y9d95/ArcGIS/rest/services/Milwaukee_County_Park_Attractions/FeatureServer/2?f=pjson
+Error: Invalid URL
+
+Checking Milwaukee Layer 3: https://services.arcgis.com/QeS8g9gPzY5Y9d95/ArcGIS/rest/services/Milwaukee_County_Park_Attractions/FeatureServer/3?f=pjson
+Error: Invalid URL
+
+Checking Milwaukee Layer 4: https://services.arcgis.com/QeS8g9gPzY5Y9d95/ArcGIS/rest/services/Milwaukee_County_Park_Attractions/FeatureServer/4?f=pjson
+Error: Invalid URL
+
+Checking Milwaukee Layer 5: https://services.arcgis.com/QeS8g9gPzY5Y9d95/ArcGIS/rest/services/Milwaukee_County_Park_Attractions/FeatureServer/5?f=pjson
+Error: Invalid URL
+
+Checking Milwaukee Layer 6: https://services.arcgis.com/QeS8g9gPzY5Y9d95/ArcGIS/rest/services/Milwaukee_County_Park_Attractions/FeatureServer/6?f=pjson
+Error: Invalid URL
+
+Checking Milwaukee Layer 7: https://services.arcgis.com/QeS8g9gPzY5Y9d95/ArcGIS/rest/services/Milwaukee_County_Park_Attractions/FeatureServer/7?f=pjson
+Error: Invalid URL
+
+Checking Milwaukee Layer 8: https://services.arcgis.com/QeS8g9gPzY5Y9d95/ArcGIS/rest/services/Milwaukee_County_Park_Attractions/FeatureServer/8?f=pjson
+Error: Invalid URL
+
+Checking Milwaukee Layer 9: https://services.arcgis.com/QeS8g9gPzY5Y9d95/ArcGIS/rest/services/Milwaukee_County_Park_Attractions/FeatureServer/9?f=pjson
+Error: Invalid URL
+
