@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
 @import "tailwindcss";
 
 @layer base {
@@ -35,103 +33,71 @@
   body {
     background-color: #1a365d;
     color: #f0f8ff;
-    font-family: 'Press Start 2P', cursive;
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
+    /* Removed Press Start 2P and pixelated rendering */
+    font-family: var(--font-outfit), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
 @layer components {
 
-  /* NES-style button */
-  .btn-nes {
+  /* Modern button (Replacing btn-nes) */
+  .btn-primary {
     cursor: pointer;
     padding: 0.5rem 1rem;
-    border: 4px solid #000000;
-    background-color: #f0f8ff;
-    color: #000000;
-    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #f0f8ff;
+    border-radius: 9999px;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
     transition: all 0.2s;
   }
 
-  .btn-nes:hover {
-    background-color: #b4975a;
+  .btn-primary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
     border-color: #b4975a;
+    color: #b4975a;
   }
 
-  .btn-nes:active {
-    transform: translateY(4px);
-    box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.5);
-  }
-
-  /* Pixel-perfect container */
-  .pixel-container {
-    border: 4px solid #f0f8ff;
-    background-color: #1a365d;
-    padding: 1rem;
-    image-rendering: pixelated;
-  }
-
-  /* 8-bit text shadow */
-  .text-nes-shadow {
-    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
-  }
-
-  /* CRT scanline effect (optional) */
-  .crt-effect::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(0deg,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0.15) 1px,
-        transparent 1px,
-        transparent 2px);
-    pointer-events: none;
-    z-index: 1000;
+  /* Standard container (Replacing pixel-container) */
+  .info-container {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(31, 41, 55, 0.8);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    padding: 1.5rem;
+    border-radius: 1rem;
   }
 
   /* Map marker styles */
   .marker-frozen {
-    background-color: #87ceeb;
-    border: 4px solid #f0f8ff;
+    background-color: #3B82F6;
+    border: 2px solid white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   }
 
   .marker-good {
-    background-color: #90ee90;
-    border: 4px solid #f0f8ff;
+    background-color: #10B981;
+    border: 2px solid white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   }
 
   .marker-slush {
-    background-color: #ffd700;
-    border: 4px solid #f0f8ff;
+    background-color: #F59E0B;
+    border: 2px solid white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   }
 
   .marker-melted {
-    background-color: #ff6347;
-    border: 4px solid #f0f8ff;
+    background-color: #EF4444;
+    border: 2px solid white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   }
 }
 
 @layer utilities {
-
-  /* Pixel-perfect image rendering */
-  .pixel-art {
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
-  }
-
-  /* Retro glow effect */
-  .glow-nes {
-    filter: drop-shadow(0 0 8px currentColor);
-  }
-
-  /* Smooth image rendering for photos */
   .image-smooth {
     image-rendering: auto !important;
   }

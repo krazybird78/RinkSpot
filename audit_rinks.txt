@@ -1,6 +1,11 @@
-Total rinks in DB: 5
-[362cd349-cc7c-456e-93e1-9913660bf847] Nuns Island: (0, 0)
-[a2b6209b-1e45-4d0c-b403-e5c58548517c] Parc de la Fontaine: (45.46341317, -73.54306794)
-[2ef96e5d-99f5-46a7-9af5-a66b76c13347] Parc de la Fontaine: (45.46339836, -73.54304896)
-[07ad5814-e18c-4e5c-bec6-1373bf0a355b] Parc Lafontaine: (45.52407292, -73.56948114)
-[a2ff3ab8-e40f-4ef7-877e-787cf59ff95b] Lac des Castor: (45.49878209, -73.59755828)
+--- Detailed Database Rink Check ---
+Total rinks found: 43
+
+CITY: Chicago | COUNT: 8
+CITY: Detroit | COUNT: 2
+CITY: Montreal | COUNT: 8
+CITY: New York | COUNT: 7
+CITY: Ottawa | COUNT: 15
+CITY: Tehran | COUNT: 1
+CITY: Verdun | COUNT: 1
+CITY: Warwick  | COUNT: 1

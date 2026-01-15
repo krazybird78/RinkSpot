@@ -121,7 +121,7 @@ export default function LandingPage() {
           {/* Stats / Social Proof - Updated to be more realistic */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto border-t border-ice-white/10 pt-12 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500">
             <div className="text-center">
-              <div className="text-3xl font-black text-white mb-1">500+</div>
+              <div className="text-3xl font-black text-white mb-1">100+</div>
               <div className="text-[10px] font-bold text-ice-white/40 uppercase tracking-widest">Global Rinks</div>
             </div>
             <div className="text-center">

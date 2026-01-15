@@ -1,0 +1,6 @@
+--- Checking Quebec City ---
+--- Checking Quebec City ---
+Found 0 rinks in Quebec City in DB.
+
+Checking API: https://services.arcgis.com/yFjY6x9zXjN1sH8a/ArcGIS/rest/services/DYNDATA/SPORTS/FeatureServer/19/query?where=1=1&outFields=*&f=json
+API Error Response: {"code":400,"message":"Invalid URL","details":["Invalid URL"]}

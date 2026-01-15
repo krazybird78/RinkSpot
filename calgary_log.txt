@@ -1,0 +1,6 @@
+--- Checking Calgary ---
+--- Checking Calgary ---
+Found 0 rinks in Calgary in DB.
+
+Checking API: https://data.calgary.ca/resource/9kxe-7ixt.json?facility_type=Outdoor%20Skating%20Rink
+API Failed: 404 Not Found

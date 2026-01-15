@@ -1,0 +1,192 @@
+﻿
+> rinkspot@0.1.0 populate
+> npx tsx scripts/populate_rinks.ts
+
+[dotenv@17.2.3] injecting env (8) from .env.local -- tip: ΓÜÖ∩╕Å  suppress all logs with { quiet: true }
+Γ£à Using Service Role Key (Bypassing RLS)
+
+>>> STARTING PROVIDER: fetchMontrealRinks
+Fetching Montreal rinks...
+>>> Provider fetchMontrealRinks returned 255 rinks.
+
+--- Processing 255 rinks for Montreal ---
+  Done: 0 inserted, 255 skipped (duplicates).
+
+>>> STARTING PROVIDER: fetchTorontoRinks
+Fetching Toronto rinks...
+node.exe : Error 
+fetching Toronto 
+rinks: SyntaxError: 
+Unexpected token 
+'<', "<html>
+At line:1 char:1
++ & "C:\Program Files
+\nodejs/node.exe" "C:
+\Users\doyon\AppData\
+Roaming\ ...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (Error f   
+ etching ...en '<    
+', "<html>:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+	<h"... is not valid 
+JSON
+    at JSON.parse 
+(<anonymous>)
+    at 
+parseJSONFromBytes (n
+ode:internal/deps/und
+ici/undici:5738:19)
+    at successSteps (
+node:internal/deps/un
+dici/undici:5719:27)
+    at fullyReadBody 
+(node:internal/deps/u
+ndici/undici:4609:9)
+    at process.proces
+sTicksAndRejections (
+node:internal/process
+/task_queues:105:5)
+    at async 
+consumeBody (node:int
+ernal/deps/undici/und
+ici:5728:7)
+    at async 
+fetchTorontoRinks (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:102
+:27)
+    at async main (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:446
+:27)
+>>> Provider fetchTorontoRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchOttawaRinks
+Fetching Ottawa rinks...
+>>> Provider fetchOttawaRinks returned 269 rinks.
+
+--- Processing 269 rinks for Ottawa ---
+  Done: 0 inserted, 269 skipped (duplicates).
+
+>>> STARTING PROVIDER: fetchCalgaryRinks
+Fetching Calgary rinks...
+>>> Provider fetchCalgaryRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchEdmontonRinks
+Fetching Edmonton rinks...
+>>> Provider fetchEdmontonRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchWinnipegRinks
+Fetching Winnipeg rinks...
+>>> Provider fetchWinnipegRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchVancouverRinks
+Fetching Vancouver rinks...
+>>> Provider fetchVancouverRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchChicagoRinks
+Fetching Chicago rinks...
+>>> Provider fetchChicagoRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchBostonRinks
+Error fetching 
+Chicago rinks: 
+SyntaxError: 
+"undefined" is not 
+valid JSON
+    at JSON.parse 
+(<anonymous>)
+    at <anonymous> (C
+:\Users\doyon\OneDriv
+e\Documents\SaaS\Rink
+Spot\rinkspot\scripts
+\populate_rinks.ts:25
+7:71)
+    at Array.map 
+(<anonymous>)
+    at 
+fetchChicagoRinks (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:253
+:22)
+    at process.proces
+sTicksAndRejections (
+node:internal/process
+/task_queues:105:5)
+    at async main (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:446
+:27)
+Fetching Boston rinks...
+>>> Provider fetchBostonRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchMinneapolisRinks
+Error fetching 
+Boston rinks: 
+Unexpected token 
+'<', "<html>
+<h"... is not valid 
+JSON
+Fetching Minneapolis rinks...
+>>> Provider fetchMinneapolisRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchQuebecCityRinks
+Fetching Quebec City rinks...
+Error fetching 
+Quebec City rinks: 
+Error: HTTP error! 
+status: 404
+    at 
+fetchQuebecCityRinks 
+(C:\Users\doyon\OneDr
+ive\Documents\SaaS\Ri
+nkSpot\rinkspot\scrip
+ts\populate_rinks.ts:
+330:33)
+    at process.proces
+sTicksAndRejections (
+node:internal/process
+/task_queues:105:5)
+    at async main (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:446
+:27)
+>>> Provider fetchQuebecCityRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchNYCRinks
+Fetching NYC rinks...
+>>> Provider fetchNYCRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchDetroitRinks
+Fetching Detroit rinks...
+>>> Provider fetchDetroitRinks returned 2 rinks.
+
+--- Processing 2 rinks for Detroit ---
+  Done: 0 inserted, 2 skipped (duplicates).
+
+>>> STARTING PROVIDER: fetchMilwaukeeRinks
+Fetching Milwaukee rinks...
+>>> Provider fetchMilwaukeeRinks returned 0 rinks.
+
+Finished population for initial major cities.

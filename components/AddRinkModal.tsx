@@ -111,9 +111,16 @@ export default function AddRinkModal({
 
             // Proximity Check: Prevent duplicate rinks within 100 meters
             if (formData.latitude !== 0 && formData.longitude !== 0) {
+                // Defines a rough bounding box (~1-2km)
+                const range = 0.02;
+
                 const { data: existingRinks } = await supabase
                     .from('rinks')
-                    .select('latitude, longitude, name');
+                    .select('latitude, longitude, name')
+                    .gte('latitude', formData.latitude - range)
+                    .lte('latitude', formData.latitude + range)
+                    .gte('longitude', formData.longitude - range)
+                    .lte('longitude', formData.longitude + range);
 
                 if (existingRinks) {
                     const tooClose = existingRinks.find(r =>

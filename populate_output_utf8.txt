@@ -1,0 +1,446 @@
+﻿
+> rinkspot@0.1.0 populate
+> npx tsx scripts/populate_rinks.ts
+
+[dotenv@17.2.3] injecting env (8) from .env.local -- tip: ≡ƒöæ add access controls to secrets: https://dotenvx.com/ops
+Γ£à Using Service Role Key (Bypassing RLS)
+
+>>> STARTING PROVIDER: fetchMontrealRinks
+Fetching Montreal rinks...
+>>> Provider fetchMontrealRinks returned 255 rinks.
+
+--- Processing 255 rinks for Montreal ---
+  Done: 0 inserted, 255 skipped (duplicates).
+
+>>> STARTING PROVIDER: fetchTorontoRinks
+Fetching Toronto rinks...
+>>> Provider fetchTorontoRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchOttawaRinks
+Fetching Ottawa rinks...
+node.exe : Error 
+fetching Toronto 
+rinks: SyntaxError: 
+Unexpected token 
+'<', "<html>
+At line:1 char:1
++ & "C:\Program Files
+\nodejs/node.exe" "C:
+\Users\doyon\AppData\
+Roaming\ ...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: (Error f   
+ etching ...en '<    
+', "<html>:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+	<h"... is not valid 
+JSON
+    at JSON.parse 
+(<anonymous>)
+    at 
+parseJSONFromBytes (n
+ode:internal/deps/und
+ici/undici:5738:19)
+    at successSteps (
+node:internal/deps/un
+dici/undici:5719:27)
+    at fullyReadBody 
+(node:internal/deps/u
+ndici/undici:4609:9)
+    at process.proces
+sTicksAndRejections (
+node:internal/process
+/task_queues:105:5)
+    at async 
+consumeBody (node:int
+ernal/deps/undici/und
+ici:5728:7)
+    at async 
+fetchTorontoRinks (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:102
+:27)
+    at async main (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:417
+:27)
+>>> Provider fetchOttawaRinks returned 269 rinks.
+
+--- Processing 269 rinks for Ottawa ---
+  Done: 0 inserted, 269 skipped (duplicates).
+
+>>> STARTING PROVIDER: fetchCalgaryRinks
+Fetching Calgary rinks...
+Error fetching 
+Calgary rinks: 
+TypeError: data.map 
+is not a function
+    at 
+fetchCalgaryRinks (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:150
+:21)
+    at process.proces
+sTicksAndRejections (
+node:internal/process
+/task_queues:105:5)
+>>> Provider fetchCalgaryRinks returned 0 rinks.
+    at async main (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:417
+:27)
+
+>>> STARTING PROVIDER: fetchEdmontonRinks
+Fetching Edmonton rinks...
+Error fetching 
+Edmonton rinks: 
+TypeError: data.map 
+is not a function
+    at 
+fetchEdmontonRinks (C
+:\Users\doyon\OneDriv
+e\Documents\SaaS\Rink
+Spot\rinkspot\scripts
+\populate_rinks.ts:17
+3:21)
+    at process.proces
+sTicksAndRejections (
+node:internal/process
+/task_queues:105:5)
+    at async main (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:417
+:27)
+>>> Provider fetchEdmontonRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchWinnipegRinks
+Fetching Winnipeg rinks...
+Error fetching 
+Winnipeg rinks: 
+TypeError: data.map 
+is not a function
+    at 
+fetchWinnipegRinks (C
+:\Users\doyon\OneDriv
+e\Documents\SaaS\Rink
+Spot\rinkspot\scripts
+\populate_rinks.ts:19
+6:21)
+    at process.proces
+sTicksAndRejections (
+node:internal/process
+/task_queues:105:5)
+    at async main (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:417
+:27)
+>>> Provider fetchWinnipegRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchVancouverRinks
+Fetching Vancouver rinks...
+Error fetching 
+Vancouver rinks: 
+TypeError: Cannot 
+read properties of 
+undefined (reading 
+'0')
+    at <anonymous> (C
+:\Users\doyon\OneDriv
+e\Documents\SaaS\Rink
+Spot\rinkspot\scripts
+\populate_rinks.ts:22
+1:32)
+    at Array.map 
+(<anonymous>)
+    at 
+fetchVancouverRinks (
+C:\Users\doyon\OneDri
+ve\Documents\SaaS\Rin
+kSpot\rinkspot\script
+s\populate_rinks.ts:2
+19:29)
+    at process.proces
+sTicksAndRejections (
+node:internal/process
+/task_queues:105:5)
+    at async main (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:417
+:27)
+>>> Provider fetchVancouverRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchChicagoRinks
+Fetching Chicago rinks...
+Error fetching 
+Chicago rinks: 
+TypeError: data.map 
+is not a function
+    at 
+fetchChicagoRinks (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:242
+:21)
+    at process.proces
+sTicksAndRejections (
+node:internal/process
+/task_queues:105:5)
+    at async main (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:417
+:27)
+>>> Provider fetchChicagoRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchBostonRinks
+Fetching Boston rinks...
+>>> Provider fetchBostonRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchMinneapolisRinks
+Error fetching 
+Boston rinks: 
+TypeError: Cannot 
+read properties of 
+undefined (reading 
+'map')
+    at 
+fetchBostonRinks (C:\
+Users\doyon\OneDrive\
+Documents\SaaS\RinkSp
+ot\rinkspot\scripts\p
+opulate_rinks.ts:265:
+30)
+    at process.proces
+sTicksAndRejections (
+node:internal/process
+/task_queues:105:5)
+    at async main (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:417
+:27)
+Fetching Minneapolis rinks...
+Error fetching 
+Minneapolis rinks: 
+TypeError: Cannot 
+read properties of 
+undefined (reading 
+'map')
+    at fetchMinneapol
+isRinks (C:\Users\doy
+on\OneDrive\Documents
+\SaaS\RinkSpot\rinksp
+ot\scripts\populate_r
+inks.ts:288:30)
+    at process.proces
+sTicksAndRejections (
+node:internal/process
+/task_queues:105:5)
+    at async main (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:417
+:27)
+>>> Provider fetchMinneapolisRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchQuebecCityRinks
+Fetching Quebec City rinks...
+Error fetching 
+Quebec City rinks: 
+SyntaxError: 
+Unexpected token 
+'<', "<!DOCTYPE "... 
+is not valid JSON
+    at JSON.parse 
+(<anonymous>)
+    at 
+parseJSONFromBytes (n
+ode:internal/deps/und
+ici/undici:5738:19)
+    at successSteps (
+node:internal/deps/un
+dici/undici:5719:27)
+    at fullyReadBody 
+(node:internal/deps/u
+ndici/undici:4609:9)
+>>> Provider fetchQuebecCityRinks returned 0 rinks.
+    at process.proces
+sTicksAndRejections (
+node:internal/process
+/task_queues:105:5)
+    at async 
+consumeBody (node:int
+ernal/deps/undici/und
+ici:5728:7)
+    at async 
+fetchQuebecCityRinks 
+(C:\Users\doyon\OneDr
+ive\Documents\SaaS\Ri
+nkSpot\rinkspot\scrip
+ts\populate_rinks.ts:
+309:27)
+    at async main (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:417
+:27)
+
+>>> STARTING PROVIDER: fetchNYCRinks
+Fetching NYC rinks...
+>>> Provider fetchNYCRinks returned 9 rinks.
+
+--- Processing 9 rinks for New York ---
+  Error inserting 
+rink Abe Stark Rink: 
+null value in column 
+"latitude" of 
+relation "rinks" 
+violates not-null 
+constraint
+  Error inserting 
+rink McCarren Rink: 
+null value in column 
+"latitude" of 
+relation "rinks" 
+violates not-null 
+constraint
+  Error inserting 
+rink World Ice 
+Arena: null value in 
+column "latitude" of 
+relation "rinks" 
+violates not-null 
+constraint
+  Error inserting 
+rink Van Cortlandt 
+Park Ice Skating 
+Rink: null value in 
+column "latitude" of 
+relation "rinks" 
+violates not-null 
+constraint
+  Error inserting 
+rink The Rink at 
+Bryant Park: null 
+value in column 
+"latitude" of 
+relation "rinks" 
+violates not-null 
+constraint
+  Error inserting 
+rink Lasker Rink: 
+null value in column 
+"latitude" of 
+relation "rinks" 
+violates not-null 
+constraint
+  Error inserting 
+rink WWII Veterans 
+War Memorial Ice 
+Skating Rink: null 
+value in column 
+"latitude" of 
+relation "rinks" 
+violates not-null 
+constraint
+  Error inserting 
+rink Wollman Rink: 
+null value in column 
+"latitude" of 
+relation "rinks" 
+violates not-null 
+constraint
+  Done: 0 inserted, 0 skipped (duplicates).
+
+>>> STARTING PROVIDER: fetchDetroitRinks
+  Error inserting 
+rink LeFrak Ice Rink 
+at Lakeside: null 
+value in column 
+"latitude" of 
+relation "rinks" 
+violates not-null 
+constraint
+Fetching Detroit rinks...
+Error fetching 
+Detroit rinks: 
+TypeError: Cannot 
+read properties of 
+undefined (reading 
+'map')
+    at 
+fetchDetroitRinks (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:358
+:30)
+    at process.proces
+sTicksAndRejections (
+node:internal/process
+/task_queues:105:5)
+    at async main (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:417
+:27)
+>>> Provider fetchDetroitRinks returned 0 rinks.
+
+>>> STARTING PROVIDER: fetchMilwaukeeRinks
+Fetching Milwaukee rinks...
+Error fetching 
+Milwaukee rinks: 
+TypeError: Cannot 
+read properties of 
+undefined (reading 
+'map')
+    at 
+fetchMilwaukeeRinks (
+C:\Users\doyon\OneDri
+ve\Documents\SaaS\Rin
+kSpot\rinkspot\script
+s\populate_rinks.ts:3
+81:30)
+    at process.proces
+sTicksAndRejections (
+node:internal/process
+/task_queues:105:5)
+    at async main (C:
+\Users\doyon\OneDrive
+\Documents\SaaS\RinkS
+pot\rinkspot\scripts\
+populate_rinks.ts:417
+:27)
+>>> Provider fetchMilwaukeeRinks returned 0 rinks.
+
+Finished population for initial major cities.

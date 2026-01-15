@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRinkData } from '@/hooks/useRinkData';
+import { useRinkData, Bounds } from '@/hooks/useRinkData';
 import dynamic from 'next/dynamic';
 import { Rink, Report } from '@/lib/supabase';
 import { playSound, soundManager } from '@/lib/sounds';
@@ -12,6 +12,9 @@ import RinkDetailModal from '@/components/RinkDetailModal';
 import Leaderboard from '@/components/Leaderboard';
 import Image from 'next/image';
 import { CircleHelp, Trophy, Shirt, Plus, MapPin, X } from 'lucide-react';
+import { Outfit } from 'next/font/google';
+
+const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit' });
 
 // Dynamic import to avoid SSR issues with Mapbox
 const RetroMap = dynamic(() => import('@/components/RetroMap'), {
@@ -20,7 +23,14 @@ const RetroMap = dynamic(() => import('@/components/RetroMap'), {
 });
 
 export default function Home() {
-    const { rinks, reports, loading: dataLoading, refreshData } = useRinkData();
+    const { rinks, reports, loading: dataLoading, fetchRinksInBounds } = useRinkData();
+    const [currentBounds, setCurrentBounds] = useState<Bounds | null>(null);
+
+    const refreshData = () => {
+        if (currentBounds) {
+            fetchRinksInBounds(currentBounds);
+        }
+    };
 
     // UI State
     const [showIntro, setShowIntro] = useState(false);
@@ -52,9 +62,9 @@ export default function Home() {
         localStorage.setItem('hasSeenIntro', 'true');
     };
 
-    if (dataLoading) {
-        return <div className="fixed inset-0 bg-rink-blue flex items-center justify-center text-ice-white font-sans animate-pulse">LOADING RINKS...</div>;
-    }
+    // if (dataLoading) {
+    //     return <div className="fixed inset-0 bg-rink-blue flex items-center justify-center text-ice-white font-sans animate-pulse">LOADING RINKS...</div>;
+    // }
 
     return (
         <main className="relative w-screen h-screen overflow-hidden bg-rink-blue">
@@ -107,11 +117,23 @@ export default function Home() {
                 </div>
             </header>
 
+            {/* Loading Indicator */}
+            {dataLoading && (
+                <div className="absolute top-20 left-1/2 -translate-x-1/2 z-50 bg-puck-black/80 backdrop-blur-md px-4 py-1 rounded-full border border-vegas-gold/50 shadow-lg flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-vegas-gold animate-pulse" />
+                    <span className="text-[10px] font-bold text-vegas-gold tracking-widest uppercase font-sans">UPDATING MAP</span>
+                </div>
+            )}
+
             {/* Map */}
             <div className="absolute inset-0 pt-20">
                 <RetroMap
                     rinks={rinks}
                     reports={reports}
+                    onBoundsChange={(bounds) => {
+                        setCurrentBounds(bounds);
+                        fetchRinksInBounds(bounds);
+                    }}
                     onRinkClick={(rink) => {
                         if (!isPickingLocation) {
                             setSelectedRink(rink);

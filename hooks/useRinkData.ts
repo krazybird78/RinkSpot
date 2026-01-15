@@ -1,81 +1,86 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase, Rink, Report } from '@/lib/supabase';
 
+export type Bounds = {
+    minLat: number;
+    maxLat: number;
+    minLng: number;
+    maxLng: number;
+};
+
 export function useRinkData() {
     const [rinks, setRinks] = useState<Rink[]>([]);
     const [reports, setReports] = useState<Report[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false); // Default to false, wait for map to initiate fetch
 
-    const fetchData = useCallback(async () => {
+    const fetchRinksInBounds = useCallback(async (bounds: Bounds) => {
         setLoading(true);
-        console.log('Loading data from Supabase...');
+        console.log('Fetching rinks for bounds:', bounds);
         try {
-            // Fetch rinks
-            const { data: rinksData, error: rinksError } = await supabase
-                .from('rinks')
-                .select('*')
-                .order('created_at', { ascending: false });
+            // 1. Fetch Rinks from Secure API
+            const params = new URLSearchParams({
+                minLat: bounds.minLat.toString(),
+                maxLat: bounds.maxLat.toString(),
+                minLng: bounds.minLng.toString(),
+                maxLng: bounds.maxLng.toString(),
+            });
 
-            if (rinksError) {
-                console.error('Error loading rinks:', rinksError);
-                throw rinksError;
-            }
+            const response = await fetch(`/api/rinks?${params.toString()}`);
+            if (!response.ok) throw new Error('Failed to fetch rinks');
 
-            // Filter out invalid coordinates (e.g., 0,0 initialized rinks) AND known duplicates/ghosts
+            const fetchedRinks: Rink[] = await response.json();
+
+            // 2. Client-side filtering (Deletes/Dupes) - Could move to backend later
             const invalidIds = [
-                '362cd349-cc7c-456e-93e1-9913660bf847', // Nuns Island (0,0)
-                '2ef96e5d-99f5-46a7-9af5-a66b76c13347'  // Duplicate Parc de la Fontaine
+                '362cd349-cc7c-456e-93e1-9913660bf847',
+                '2ef96e5d-99f5-46a7-9af5-a66b76c13347'
             ];
 
-            const validRinks = (rinksData || []).filter(r =>
-                !(Math.abs(r.latitude) < 0.0001 && Math.abs(r.longitude) < 0.0001) &&
-                !invalidIds.includes(r.id)
-            );
+            // Note: API already filters by bounds, but we keep the ID filter
+            const validRinks = fetchedRinks.filter(r => !invalidIds.includes(r.id));
 
-            // Fetch active deletion requests to filter out expired ones
-            const { data: deletionRequests } = await supabase
-                .from('deletion_requests')
-                .select('rink_id, status, scheduled_deletion_at')
-                .eq('status', 'confirmed');
+            setRinks(validRinks);
 
-            const deletedRinkIds = (deletionRequests || [])
-                .filter(req => req.scheduled_deletion_at && new Date(req.scheduled_deletion_at) < new Date())
-                .map(req => req.rink_id);
+            // 3. Fetch Reports via Secure API (Data Tiering)
+            // Auth users get 48h, Anon get 12h
+            if (validRinks.length > 0) {
+                const { data: { session } } = await supabase.auth.getSession();
+                const headers: HeadersInit = {};
 
-            const finalRinks = validRinks.filter(r => !deletedRinkIds.includes(r.id));
+                if (session?.access_token) {
+                    headers['Authorization'] = `Bearer ${session.access_token}`;
+                }
 
-            // Fetch reports (Optimization: Request only last 48 hours to improve performance)
-            const fortyEightHoursAgo = new Date();
-            fortyEightHoursAgo.setHours(fortyEightHoursAgo.getHours() - 48);
+                const reportParams = new URLSearchParams({
+                    minLat: bounds.minLat.toString(),
+                    maxLat: bounds.maxLat.toString(),
+                    minLng: bounds.minLng.toString(),
+                    maxLng: bounds.maxLng.toString(),
+                });
 
-            const { data: reportsData, error: reportsError } = await supabase
-                .from('reports')
-                .select('*')
-                .gte('created_at', fortyEightHoursAgo.toISOString())
-                .order('created_at', { ascending: false });
+                const reportsResponse = await fetch(`/api/reports?${reportParams.toString()}`, {
+                    headers
+                });
 
-            if (reportsError) {
-                console.error('Error loading reports:', reportsError);
-                throw reportsError;
+                if (reportsResponse.ok) {
+                    const reportsData = await reportsResponse.json();
+                    setReports(reportsData || []);
+                } else {
+                    console.error('Failed to fetch reports API');
+                    setReports([]);
+                }
+            } else {
+                setReports([]);
             }
 
-            console.log('Data loaded successfully:', { rinks: finalRinks.length, reports: reportsData?.length });
-            setRinks(finalRinks);
-            setReports(reportsData || []);
         } catch (error) {
             console.error('Error loading data:', error);
-            // Set empty arrays so the app can still load
-            setRinks([]);
-            setReports([]);
         } finally {
-            console.log('Data loading complete');
             setLoading(false);
         }
     }, []);
 
-    useEffect(() => {
-        fetchData();
-    }, [fetchData]);
+    // Remove initial useEffect. Data must be requested by the map.
 
-    return { rinks, reports, loading, refreshData: fetchData };
+    return { rinks, reports, loading, fetchRinksInBounds };
 }

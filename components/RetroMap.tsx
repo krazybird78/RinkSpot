@@ -13,6 +13,7 @@ interface RetroMapProps {
     reports: Report[];
     onRinkClick?: (rink: Rink) => void;
     onMapClick?: (lat: number, lng: number) => void;
+    onBoundsChange?: (bounds: { minLat: number; maxLat: number; minLng: number; maxLng: number }) => void; // New Prop
     center?: [number, number];
     zoom?: number;
     cursor?: string;
@@ -23,6 +24,7 @@ export default function RetroMap({
     reports,
     onRinkClick,
     onMapClick,
+    onBoundsChange,
     center = [-73.5673, 45.5017], // Default: Montreal
     zoom = 11,
     cursor = 'default',
@@ -31,8 +33,21 @@ export default function RetroMap({
     const map = useRef<mapboxgl.Map | null>(null);
     const [mapLoaded, setMapLoaded] = useState(false);
 
+    const onRinkClickRef = useRef(onRinkClick);
+    const onMapClickRef = useRef(onMapClick);
+    const onBoundsChangeRef = useRef(onBoundsChange);
+
+    // Update refs when props change
+    useEffect(() => {
+        onRinkClickRef.current = onRinkClick;
+        onMapClickRef.current = onMapClick;
+        onBoundsChangeRef.current = onBoundsChange;
+    }, [onRinkClick, onMapClick, onBoundsChange]);
+
     // Initialize map
     useEffect(() => {
+        if (map.current) return; // Only initialize once
+
         console.log('Initializing map with token:', mapboxgl.accessToken?.substring(0, 10) + '...');
 
         try {
@@ -51,8 +66,23 @@ export default function RetroMap({
 
             // Add map click listener
             map.current.on('click', (e) => {
-                onMapClick?.(e.lngLat.lat, e.lngLat.lng);
+                onMapClickRef.current?.(e.lngLat.lat, e.lngLat.lng);
             });
+
+            // Handle Bounds Change
+            const handleMoveEnd = () => {
+                const bounds = map.current?.getBounds();
+                if (bounds && onBoundsChangeRef.current) {
+                    onBoundsChangeRef.current({
+                        minLng: bounds.getWest(),
+                        maxLng: bounds.getEast(),
+                        minLat: bounds.getSouth(),
+                        maxLat: bounds.getNorth(),
+                    });
+                }
+            };
+
+            map.current.on('moveend', handleMoveEnd);
 
             map.current.on('load', () => {
                 console.log('Map loaded successfully');
@@ -70,11 +100,6 @@ export default function RetroMap({
                 console.error('Mapbox error:', e);
             });
 
-            // Update cursor when it changes
-            if (map.current) {
-                map.current.getCanvas().style.cursor = cursor;
-            }
-
             // Play skate scratch sound on map drag
             map.current.on('dragend', () => {
                 playSound('skate-scratch');
@@ -83,10 +108,23 @@ export default function RetroMap({
             console.error('Error initializing map:', err);
         }
 
+        // Cleanup only on unmount
         return () => {
             map.current?.remove();
+            map.current = null;
         };
-    }, [center, zoom, onMapClick, cursor]);
+    }, []); // Empty dependency array to initialize only once
+
+    // Update cursor separately
+    useEffect(() => {
+        if (map.current) {
+            map.current.getCanvas().style.cursor = cursor;
+        }
+    }, [cursor]);
+
+    // Handle center/zoom updates if needed (optional, but good for imperative moves)
+    // We typically don't want to force move the map if the user panned, unless specific logic demands it.
+    // For now, let's leave this out to respect user's manual navigation unless specific "flyTo" prop is added later.
 
     // Add rink markers
     useEffect(() => {
@@ -101,7 +139,12 @@ export default function RetroMap({
             }
         });
 
-        // Clear existing markers
+        // Clear existing markers (naive approach: remove all and re-add)
+        // In a heavier app, we'd diff them, but for <100 rinks it's fine.
+        // We need to track markers to remove them.
+        // Since we don't have a ref for markers in this scope across renders easily without a ref,
+        // let's assume this effect handles its own cleanup via return.
+
         const markers: mapboxgl.Marker[] = [];
 
         rinks.forEach(rink => {
@@ -127,9 +170,10 @@ export default function RetroMap({
                 .addTo(map.current!);
 
             // Add click handler
-            el.addEventListener('click', () => {
+            el.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent map click
                 playSound('menu-beep');
-                onRinkClick?.(rink);
+                onRinkClickRef.current?.(rink);
             });
 
             markers.push(marker);
@@ -138,7 +182,7 @@ export default function RetroMap({
         return () => {
             markers.forEach(marker => marker.remove());
         };
-    }, [rinks, reports, mapLoaded, onRinkClick]);
+    }, [rinks, reports, mapLoaded]); // removed onRinkClick from deps as we use ref
 
     // Check for token
     if (!process.env.NEXT_PUBLIC_MAPBOX_TOKEN) {

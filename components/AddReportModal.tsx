@@ -6,7 +6,7 @@ import { getIceStatusForLocation } from '@/lib/weather';
 import { playSound } from '@/lib/sounds';
 import { awardPoints } from '@/lib/scoring';
 import { uploadRinkPhoto } from '@/lib/photos';
-import { Star } from 'lucide-react';
+import { Star, Camera } from 'lucide-react';
 import CrowdMeter from './CrowdMeter';
 
 interface AddReportModalProps {
@@ -259,7 +259,7 @@ export default function AddReportModal({
                                         className="hidden"
                                     />
                                     <div className="text-ice-white/60 hover:text-vegas-gold transition-colors">
-                                        <p className="text-2xl mb-2">📸</p>
+                                        <Camera className="w-8 h-8 mb-2 mx-auto" />
                                         <p className="text-[9px]">Click to upload photo</p>
                                         <p className="text-[7px] text-ice-white/40 mt-1">JPG, PNG, WEBP • Max 5MB</p>
                                     </div>

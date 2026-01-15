@@ -1,0 +1,35 @@
+--- Start Verify ---
+Checking Supabase for Toronto rinks...
+Found 0 rinks in Toronto in DB.
+
+Checking Toronto Open Data API...
+Package Fetch Status: 200
+Direct URL: https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/e51b5d31-a53c-4fc5-a204-36c43243dd3b/resource/2ae3625b-30f1-4470-bf80-ecc56ab2d674/download/outdoor-ice-rinks-4326.geojson
+
+Trying Direct URL fetch...
+FOUND GEOJSON FEATURES: 69
+Sample Feature Properties: {
+  "_id": 1,
+  "Parent Asset Name": "Albert Campbell Square",
+  "Asset ID": "43568",
+  "Asset Name": "Albert Campbell Square - Outdoor Ice Pad",
+  "Public Name": "Scarborough Civic Centre/Albert Campbell Square Outdoor Artificial Ice Rink",
+  "Pad Length (ft.)": "",
+  "Pad Width (ft.)": "",
+  "Ice Pad Type": "Outdoor Ice Pad",
+  "Boards (Ice Rink)": "No",
+  "Rink is Lit": "Yes",
+  "Address": "150 Borough Dr",
+  "Postal Code": "M1P 4N7",
+  "Community Council Area": "Scarborough",
+  "Ward": "21"
+}
+Sample Geometry: {
+  "type": "MultiPoint",
+  "coordinates": [
+    [
+      -79.2576291899999,
+      43.773459206
+    ]
+  ]
+}
