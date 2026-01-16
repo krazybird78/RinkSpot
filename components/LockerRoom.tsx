@@ -12,9 +12,9 @@ interface LockerRoomProps {
 }
 
 const NEIGHBORHOOD_TEAMS = [
-    'Verdun', 'Plateau', 'Mile End', 'Rosemont',
-    'Brooklyn', 'Queens', 'Manhattan',
-    'Stockholm', 'Helsinki', 'Oslo',
+    'Montreal', 'Quebec City', 'Toronto', 'Ottawa',
+    'Boston', 'New York', 'Chicago', 'Detroit',
+    'Philadelphia', 'Minnesota', 'Winnipeg', 'Calgary', 'Edmonton', 'Vancouver',
     'Custom'
 ];
 
@@ -22,7 +22,6 @@ import { AVATAR_MAP } from '@/lib/avatars';
 import PlayerCard from '@/components/PlayerCard';
 import { cn } from '@/lib/utils';
 import { Trophy, MapPin, FileText, Flame, Save, LogOut, Check, ShoppingBag, X, Landmark, Gamepad2, Swords, Sun, Moon, Calendar, Globe, ThermometerSnowflake, Users } from 'lucide-react';
-
 
 // Define availble colors/teams
 const TEAM_COLORS = {
@@ -296,11 +295,10 @@ export default function LockerRoom({ isOpen, onClose }: LockerRoomProps) {
                                             <select
                                                 value={neighborhoodTeam}
                                                 onChange={(e) => setNeighborhoodTeam(e.target.value)}
-                                                className="w-full px-4 py-3 bg-ice-white/5 border border-ice-white/10 rounded-xl text-ice-white text-sm font-bold focus:border-vegas-gold/50 focus:bg-ice-white/10 outline-none appearance-none cursor-pointer"
+                                                className="w-full px-4 py-3 bg-ice-white/5 border border-ice-white/10 rounded-xl text-ice-white text-sm font-bold focus:border-vegas-gold/50 focus:bg-ice-white/10 outline-none appearance-none cursor-pointer [&>option]:text-black [&>option]:bg-white"
                                             >
-                                                <option value="" className="bg-puck-black text-ice-white">Select a district...</option>
                                                 {NEIGHBORHOOD_TEAMS.map(team => (
-                                                    <option key={team} value={team} className="bg-puck-black text-ice-white">{team}</option>
+                                                    <option key={team} value={team} className="text-black bg-white font-bold">{team}</option>
                                                 ))}
                                             </select>
                                             <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-ice-white/40">
